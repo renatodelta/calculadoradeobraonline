@@ -32,6 +32,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="header">
     <div class="container">
         <h1 class="logo">Calculadora de Obra Online</h1>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+        </button>
         <nav>
             <a href="index.html">Início</a>
             <a href="#calculadoras">Calculadoras</a>
@@ -40,44 +43,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </nav>
     </div>
 </header>
+<div class="menu-overlay"></div>
 
 <section class="hero">
     <div class="container">
-        <h2>Ferramentas Profissionais para Cálculo de Construção Civil</h2>
-        <p>Planeje sua obra com precisão. Utilize nossas calculadoras para estimar materiais e evitar desperdícios.</p>
-        <a href="#calculadoras" class="btn-primary">Ver Calculadoras</a>
+        <h2>Qual cálculo você deseja fazer na obra?</h2>
+        <p>Acesse as calculadoras pelos ícones abaixo e obtenha estimativas rápidas para concreto, tijolos, piso e reboco.</p>
+        <a href="#calculadoras" class="btn-primary">Escolher calculadora</a>
     </div>
 </section>
 
 <section id="calculadoras" class="calculators">
     <div class="container">
-        <h2>Nossas Ferramentas</h2>
+        <h2>Calculadoras por ícone</h2>
 
         <div class="card-grid">
 
-            <div class="card">
+            <a class="card" href="concreto.html" aria-label="Abrir Calculadora de Concreto">
+                <div class="card-icon">🧱</div>
                 <h3>Calculadora de Concreto</h3>
-                <p>Calcule volume, cimento, areia e brita para sua obra.</p>
-                <a href="concreto.html" class="btn-secondary">Calcular</a>
-            </div>
+                <p>Volume e materiais para laje, piso e fundação.</p>
+            </a>
 
-            <div class="card">
+            <a class="card" href="tijolos.html" aria-label="Abrir Calculadora de Tijolos">
+                <div class="card-icon">🧱</div>
                 <h3>Calculadora de Tijolos</h3>
-                <p>Estime a quantidade de tijolos por metro quadrado.</p>
-                <a href="tijolos.html" class="btn-secondary">Calcular</a>
-            </div>
+                <p>Estimativa de peças por área de parede.</p>
+            </a>
 
-            <div class="card">
+            <a class="card" href="piso.html" aria-label="Abrir Calculadora de Piso">
+                <div class="card-icon">🧩</div>
                 <h3>Calculadora de Piso</h3>
-                <p>Descubra quantas peças de piso você vai precisar.</p>
-                <a href="piso.html" class="btn-secondary">Calcular</a>
-            </div>
+                <p>Quantidade de peças com margem de perda.</p>
+            </a>
 
-            <div class="card">
+            <a class="card" href="reboco.html" aria-label="Abrir Calculadora de Reboco">
+                <div class="card-icon">🪣</div>
                 <h3>Cálculo de Reboco</h3>
-                <p>Estime a quantidade de argamassa para reboco.</p>
-                <a href="reboco.html" class="btn-secondary">Calcular</a>
-            </div>
+                <p>Argamassa e traço para chapisco e acabamento.</p>
+            </a>
 
         </div>
     </div>
