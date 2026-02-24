@@ -68,11 +68,8 @@ nav a {
     background: #FFFFFF;
 }
 
-.calculator .container {
-    max-width: 600px;
-}
-
 .calculator h3 {
+    text-align: center;
     color: #1E3A5F;
     margin-bottom: 30px;
 }
@@ -128,13 +125,6 @@ nav a {
     margin-top: 20px;
     width: 100%;
     max-width: 400px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.calculator button:hover {
-    background: #27632a;
 }
 
 #resultado {
@@ -144,7 +134,6 @@ nav a {
     background: #F4F6F8;
     border-radius: 8px;
     border-left: 4px solid #2E7D32;
-    max-width: 500px;
 }
 
 #resultado h3 {
