@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Tijolos Online | Calculadora de Obra</title>
+<meta name="description" content="Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.">
+<link rel="canonical" href="https://calculadoradeobraonline.com.br/tijolos.html">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo">Calculadora de Obra Online</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h2>Calculadora de Tijolos por m²</h2>
+        <p>Calcule a quantidade exata de tijolos necessários para sua construção.</p>
+    </div>
+</section>
+
+<!-- Espaço para anúncio -->
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
+
+<section id="calculadora" class="calculator">
+    <div class="container">
+        <h3>Preencha os dados da sua parede</h3>
+        
+        <div class="form-group">
+            <label>Área da parede (m²):</label>
+            <input type="number" id="area" placeholder="Ex: 20" min="0.1" step="0.5">
+        </div>
+
+        <div class="form-group">
+            <label>Tipo de tijolo:</label>
+            <select id="tipoTijolo" class="select-input">
+                <option value="8">Tijolo baiano 8 furos (25 tijolos/m²)</option>
+                <option value="6">Tijolo 6 furos (20 tijolos/m²)</option>
+                <option value="comum">Tijolo comum maciço (85 tijolos/m²)</option>
+                <option value="bloco">Bloco de concreto (12,5 blocos/m²)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Espessura do rejunte (cm):</label>
+            <input type="number" id="rejunte" placeholder="Ex: 1" value="1" min="0.5" step="0.5">
+        </div>
+
+        <button class="btn-primary" onclick="calcular()">Calcular Tijolos</button>
+
+        <div id="resultado"></div>
+    </div>
+</section>
+
+<!-- Espaço para anúncio -->
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
+
+<section class="about">
+    <div class="container">
+        <h2>Como funciona o cálculo?</h2>
+        <p>O cálculo considera a área total da parede e o tipo de tijolo escolhido. Cada tipo possui um rendimento médio por metro quadrado, levando em conta as dimensões do tijolo e a espessura da argamassa de assentamento.</p>
+        
+        <h3>Rendimento por tipo de tijolo:</h3>
+        <ul>
+            <li><strong>Tijolo baiano 8 furos:</strong> Aproximadamente 25 unidades por m²</li>
+            <li><strong>Tijolo 6 furos:</strong> Aproximadamente 20 unidades por m²</li>
+            <li><strong>Tijolo comum maciço:</strong> Aproximadamente 85 unidades por m²</li>
+            <li><strong>Bloco de concreto:</strong> Aproximadamente 12,5 unidades por m²</li>
+        </ul>
+
+        <h2>Perguntas Frequentes</h2>
+        <p><strong>❓ Quantos tijolos vão em 1 m²?</strong><br>
+        Depende do tipo. Tijolo baiano 8 furos: ~25 unidades. Tijolo comum: ~85 unidades.</p>
+
+        <p><strong>❓ Devo comprar tijolos extras?</strong><br>
+        Sim! Recomendamos adicionar 10-15% ao resultado para compensar quebras e desperdícios.</p>
+
+        <p><strong>❓ A espessura do rejunte influencia?</strong><br>
+        Sim. Quanto mais grossa a camada de argamassa, menos tijolos por m². Nossa calculadora usa 1cm como padrão.</p>
+
+        <p><strong>❓ Posso usar essa calculadora para bloco de concreto?</strong><br>
+        Sim! Selecione a opção "Bloco de concreto" no tipo de tijolo.</p>
+
+        <p><strong>❓ Como calcular a argamassa de assentamento?</strong><br>
+        Use nossa <a href="reboco.html">Calculadora de Reboco</a> para estimar argamassa.</p>
+    </div>
+</section>
+
+<!-- Espaço para anúncio -->
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+
+        <div class="footer-links">
+            <a href="sobre.html">Sobre</a> |
+            <a href="contato.html">Contato</a> |
+            <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/tijolos.js"></script>
+
+</body>
+</html>

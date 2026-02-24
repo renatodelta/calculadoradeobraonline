@@ -101,6 +101,24 @@ nav a {
     box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
 }
 
+.select-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    cursor: pointer;
+}
+
+.select-input:focus {
+    outline: none;
+    border-color: #2E7D32;
+    box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+}
+
 .calculator button {
     margin-top: 20px;
     width: 100%;
