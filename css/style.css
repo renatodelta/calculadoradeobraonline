@@ -86,7 +86,7 @@ nav a {
 }
 
 .form-group input {
-    width: 100%;
+    width: 50%;
     max-width: 400px;
     padding: 12px;
     border: 1px solid #CCC;
