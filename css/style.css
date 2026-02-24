@@ -69,37 +69,34 @@ nav a {
 }
 
 .calculator .container {
-    max-width: 100%;
-    padding: 0 40px;
+    max-width: 600px;
 }
 
 .calculator h3 {
     color: #1E3A5F;
-    margin-bottom: 40px;
-    font-size: 22px;
+    margin-bottom: 30px;
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 600;
     color: #1E3A5F;
-    font-size: 15px;
 }
 
 .form-group input {
     width: 100%;
-    padding: 14px;
+    max-width: 400px;
+    padding: 12px;
     border: 1px solid #CCC;
     border-radius: 6px;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
-    height: 44px;
 }
 
 .form-group input:focus {
@@ -110,7 +107,8 @@ nav a {
 
 .select-input {
     width: 100%;
-    padding: 14px;
+    max-width: 400px;
+    padding: 12px;
     border: 1px solid #CCC;
     border-radius: 6px;
     font-size: 16px;
@@ -118,7 +116,6 @@ nav a {
     background-color: white;
     cursor: pointer;
     box-sizing: border-box;
-    height: 44px;
 }
 
 .select-input:focus {
@@ -128,13 +125,12 @@ nav a {
 }
 
 .calculator button {
-    margin-top: 30px;
-    width: auto;
-    padding: 14px 32px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    font-weight: 600;
 }
 
 .calculator button:hover {
@@ -143,25 +139,22 @@ nav a {
 
 #resultado {
     margin-top: 50px;
-    padding: 25px;
+    padding: 25p40px;
+    padding: 20px;
     background: #F4F6F8;
     border-radius: 8px;
     border-left: 4px solid #2E7D32;
-    line-height: 1.8;
+    max-width: 500px;
 }
 
 #resultado h3 {
     text-align: left;
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 18px;
 }
 
 #resultado p {
-    margin: 12px 0;
-    font-size: 16px;
-    line-height: 1.6;
-}
+    margin: 10px 0;
+    font-size: 16px
 
 .card-grid {
     display: grid;
