@@ -104,3 +104,12 @@ nav a {
     padding: 20px 0;
     margin-top: 40px;
 }
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
