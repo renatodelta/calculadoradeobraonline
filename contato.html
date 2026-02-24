@@ -34,14 +34,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </header>
 
-<section class="section">
+<section class="calculator">
     <div class="container">
-        <h2>Fale Conosco</h2>
-        <form action="https://formspree.io/f/SEUCODIGO" method="POST" class="form">
-            <input type="text" name="nome" placeholder="Seu nome" required>
-            <input type="email" name="email" placeholder="Seu e-mail" required>
-            <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
-            <button type="submit">Enviar</button>
+        <h2 style="text-align: center; margin-bottom: 40px;">Fale Conosco</h2>
+        <form action="https://formspree.io/f/xwvnwjdg" method="POST">
+            <div class="form-group">
+                <label>Seu nome:</label>
+                <input type="text" name="nome" placeholder="Ex: João Silva" required>
+            </div>
+
+            <div class="form-group">
+                <label>Seu e-mail:</label>
+                <input type="email" name="email" placeholder="Ex: joao@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Assunto:</label>
+                <input type="text" name="assunto" placeholder="Ex: Dúvida sobre cálculo" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sua mensagem:</label>
+                <textarea name="message" placeholder="Descreva sua dúvida ou sugestão..." required style="min-height: 150px; resize: vertical;"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Enviar Mensagem</button>
         </form>
     </div>
 </section>
