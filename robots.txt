@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /temp/
+
+Sitemap: https://calculadoradeobraonline.com.br/sitemap.xml
+
+# Delay for crawlers (in seconds)
+Crawl-delay: 1

@@ -63,8 +63,66 @@ nav a {
     margin-top: 10px;
 }
 
-.calculators {
+.calculator {
     padding: 60px 0;
+    background: #FFFFFF;
+}
+
+.calculator h3 {
+    text-align: center;
+    color: #1E3A5F;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1E3A5F;
+}
+
+.form-group input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2E7D32;
+    box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+}
+
+.calculator button {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+#resultado {
+    margin-top: 40px;
+    padding: 20px;
+    background: #F4F6F8;
+    border-radius: 8px;
+    border-left: 4px solid #2E7D32;
+}
+
+#resultado h3 {
+    text-align: left;
+    margin-top: 0;
+}
+
+#resultado p {
+    margin: 10px 0;
+    font-size: 16px;
 }
 
 .card-grid {
@@ -94,6 +152,25 @@ nav a {
 }
 
 .about {
+    padding: 60px 0;
+}
+
+.about ul {
+    margin: 15px 0;
+    padding-left: 30px;
+}
+
+.about li {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.about h3 {
+    margin-top: 20px;
+    color: #1E3A5F;
+}
+
+.calculators {
     padding: 60px 0;
 }
 

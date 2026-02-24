@@ -5,47 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculadora de Concreto por m² Online | Calculadora de Obra</title>
 <meta name="description" content="Calcule rapidamente a quantidade de concreto, cimento, areia e brita para sua obra. Simples, rápido e gratuito.">
+<link rel="canonical" href="https://calculadoradeobraonline.com.br/concreto.html">
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 <body>
 
-<header>
-<h1>Calculadora de Concreto por m²</h1>
-<p>Calcule o volume de concreto e a quantidade aproximada de materiais para sua obra.</p>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo">Calculadora de Obra Online</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </div>
 </header>
 
-<!-- Espaço para anúncio -->
-<div class="ad-space">Espaço para anúncio</div>
-
-<section class="calculator">
-<label>Área (m²):</label>
-<input type="number" id="area" placeholder="Ex: 20">
-
-<label>Espessura (cm):</label>
-<input type="number" id="espessura" placeholder="Ex: 10">
-
-<button onclick="calcular()">Calcular</button>
-
-<div id="resultado"></div>
+<section class="hero">
+    <div class="container">
+        <h2>Calculadora de Concreto por m²</h2>
+        <p>Calcule o volume de concreto e a quantidade aproximada de materiais para sua obra com precisão.</p>
+    </div>
 </section>
 
 <!-- Espaço para anúncio -->
-<div class="ad-space">Espaço para anúncio</div>
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
 
-<section>
-<h2>Como funciona o cálculo?</h2>
-<p>O cálculo considera o volume total necessário em metros cúbicos e utiliza uma média de traço comum (1:2:3) para estimar a quantidade de cimento, areia e brita.</p>
+<section id="calculadora" class="calculator">
+    <div class="container">
+        <h3>Preencha os dados da sua obra</h3>
+        
+        <div class="form-group">
+            <label>Área (m²):</label>
+            <input type="number" id="area" placeholder="Ex: 20" min="0.1" step="0.5">
+        </div>
+
+        <div class="form-group">
+            <label>Espessura (cm):</label>
+            <input type="number" id="espessura" placeholder="Ex: 10" min="1" step="1">
+        </div>
+
+        <button class="btn-primary" onclick="calcular()">Calcular Concreto</button>
+
+        <div id="resultado"></div>
+    </div>
 </section>
 
-<section>
-<h2>Perguntas Frequentes</h2>
-<p><strong>Quantos sacos de cimento por m³?</strong><br>
-Em média, utiliza-se 6 a 8 sacos de 50kg por metro cúbico de concreto.</p>
+<!-- Espaço para anúncio -->
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
 
-<p><strong>Posso usar esse cálculo para laje?</strong><br>
-Sim, para lajes residenciais simples o cálculo serve como estimativa inicial.</p>
+<section class="about">
+    <div class="container">
+        <h2>Como funciona o cálculo?</h2>
+        <p>O cálculo considera o volume total necessário em metros cúbicos e utiliza uma proporção média de traço comum (1:2:3) para estimar a quantidade exata de cimento, areia e brita que você precisará. Esta é uma estimativa baseada em padrões da construção civil brasileira.</p>
+        
+        <h3>Fórmula utilizada:</h3>
+        <ul>
+            <li><strong>Volume (m³)</strong> = Área (m²) × Espessura em metros</li>
+            <li><strong>Cimento</strong> = Volume × 7 sacos de 50kg</li>
+            <li><strong>Areia</strong> = Volume × 0.5 m³</li>
+            <li><strong>Brita</strong> = Volume × 0.8 m³</li>
+        </ul>
+
+        <h2>Perguntas Frequentes</h2>
+        <p><strong>❓ Quantos sacos de cimento por m³?</strong><br>
+        Em média, utiliza-se 6 a 8 sacos de 50kg por metro cúbico de concreto. Nossa calculadora utiliza 7 sacos como padrão.</p>
+
+        <p><strong>❓ Posso usar esse cálculo para laje?</strong><br>
+        Sim! Para lajes residenciais simples o cálculo serve como uma estimativa inicial confiável. Para estruturas especiais, consulte um engenheiro.</p>
+
+        <p><strong>❓ A estimativa inclui desperdício?</strong><br>
+        A estimativa é teórica. Recomendamos adicionar 10-15% ao resultado final para cobrir desperdício natural de obra.</p>
+
+        <p><strong>❓ Qual é a diferença entre os tipos de brita?</strong><br>
+        Brita 1 (19mm) é mais comum em concretos residenciais. Brita 2 (32mm) é usada em estruturas maiores. Consulte seu fornecedor local.</p>
+
+        <p><strong>❓ Posso calcular concreto pré-misturado?</strong><br>
+        Sim! Use o volume total em m³ como referência. Um m³ de concreto usinado custa entre R$ 400-600 (valores aproximados em 2026).</p>
+    </div>
 </section>
+
+<!-- Espaço para anúncio -->
+<div class="container">
+    <div class="ad-space">Espaço para anúncio</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+
+        <div class="footer-links">
+            <a href="sobre.html">Sobre</a> |
+            <a href="contato.html">Contato</a> |
+            <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        </div>
+    </div>
+</footer>
 
 <script src="js/concreto.js"></script>
 
