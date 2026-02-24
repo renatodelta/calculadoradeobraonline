@@ -40,7 +40,7 @@ body {
 .header {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1300;
     background: rgba(4, 28, 46, 0.92);
     backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -120,6 +120,8 @@ nav {
     transition: right 0.3s ease;
     box-shadow: -10px 0 24px rgba(0, 0, 0, 0.28);
     z-index: 1200;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 nav a {
@@ -137,6 +139,8 @@ nav a:hover {
 
 .menu-open nav {
     right: 0;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .menu-overlay {
@@ -146,7 +150,7 @@ nav a:hover {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.25s ease;
-    z-index: 1100;
+    z-index: 1200;
 }
 
 .menu-open .menu-overlay {
