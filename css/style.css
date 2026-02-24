@@ -55,10 +55,19 @@ body {
 }
 
 .logo {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #f5fbff;
     letter-spacing: 0.03em;
+}
+
+.logo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    opacity: 0.9;
 }
 
 .menu-toggle {
@@ -270,6 +279,15 @@ nav a:hover {
     font-size: 1.25rem;
 }
 
+.card-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #0f2336;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .card h3 {
     font-size: 0.95rem;
     margin-bottom: 4px;
@@ -429,7 +447,7 @@ nav a:hover {
     }
 
     .logo {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 }
 
