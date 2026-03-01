@@ -1,0 +1,43 @@
+GUIA RAPIDO DE PUBLICACAO DE ARTIGOS (1 COMANDO)
+
+COMANDO PADRAO
+- powershell -ExecutionPolicy Bypass -File .\scripts\new-article.ps1 -Slug "seu-slug" -Title "Seu Titulo" -Description "Sua descricao SEO"
+
+EXEMPLO REAL
+- powershell -ExecutionPolicy Bypass -File .\scripts\new-article.ps1 -Slug "como-calcular-cimento-por-m2" -Title "Como Calcular Cimento por m²" -Description "Aprenda como calcular cimento por metro quadrado com fórmula prática e exemplos de obra."
+
+O QUE O SCRIPT FAZ AUTOMATICAMENTE
+1) Cria o artigo em artigos/seu-slug.html (baseado no template)
+2) Cria imagem social em assets/og-seu-slug.svg
+3) Adiciona card no bloco "Todos os artigos" em artigos/index.html
+4) Adiciona URL no sitemap.xml
+5) Atualiza lastmod de /artigos/index.html no sitemap
+6) Gera corpo inicial semi-pronto com:
+	- introdução pronta
+	- 5 seções padrão
+	- FAQ curto
+	- conclusão
+	- CTA para a calculadora mais coerente com o tema
+
+TRAVAS DE SEGURANCA SEO
+- Bloqueia slug inválido
+- Bloqueia slug já existente
+- Bloqueia URL duplicada no sitemap
+- Exige título e descrição
+
+PARAMETROS UTEIS
+-Category "Argamassa"
+-ReadTime 8
+-Subtitle "Subtitulo do hero"
+-CtaCalculator "reboco"
+-CtaTitle "Quer calcular agora?"
+-CtaText "Texto de apoio da chamada"
+-CtaButtonText "Abrir Calculadora"
+-PublishDate "2026-03-01"
+-DryRun (simula sem gravar)
+-Force (sobrescreve arquivo existente)
+
+REVISAO FINAL (2 MIN)
+1) Abrir o artigo e ajustar conteúdo técnico específico (números, normas, exemplos)
+2) Conferir se o card ficou correto em artigos/index.html
+3) Reenviar sitemap no Search Console quando publicar lotes maiores

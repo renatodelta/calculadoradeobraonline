@@ -485,6 +485,10 @@ body {
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+.blog-index .blog-post-card + .blog-post-card {
+    margin-top: 14px;
+}
+
 .blog-post-card:hover {
     transform: translateY(-3px);
     border-color: #9fc3dd;

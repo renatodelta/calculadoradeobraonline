@@ -55,9 +55,26 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://calculadoradeobraonline.com.br/artigos/index.html</loc>
-    <lastmod>2026-02-28</lastmod>
+    $12026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://calculadoradeobraonline.com.br/artigos/como-calcular-argamassa-assentamento-tijolos.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculadoradeobraonline.com.br/artigos/tracos-de-concreto-mais-usados-em-obras-residenciais.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculadoradeobraonline.com.br/artigos/concreto-de-fundacao-como-evitar-falhas-de-execucao.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
