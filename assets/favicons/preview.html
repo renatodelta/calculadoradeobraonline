@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview de Favicons</title>
+<style>
+  body { font-family: Inter, Arial, sans-serif; margin: 24px; background: #eef3f8; color: #0f2336; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid #d8e1ea; border-radius: 12px; padding: 16px; }
+  .icon { width: 64px; height: 64px; border-radius: 12px; display: block; margin-bottom: 12px; }
+  h1 { font-size: 1.2rem; margin-bottom: 14px; }
+  h2 { font-size: 1rem; margin: 0 0 6px; }
+  p { margin: 0; color: #5f7282; font-size: 0.92rem; }
+</style>
+</head>
+<body>
+  <h1>Comparação de favicons</h1>
+  <div class="grid">
+    <div class="card">
+      <img class="icon" src="favicon-a-capacete.svg" alt="Favicon A" />
+      <h2>A — Capacete + cálculo</h2>
+      <p>Mais “obra”, forte para público da construção.</p>
+    </div>
+    <div class="card">
+      <img class="icon" src="favicon-b-tijolo-calculadora.svg" alt="Favicon B" />
+      <h2>B — Tijolo + calculadora</h2>
+      <p>Equilíbrio entre cálculo e materiais de obra.</p>
+    </div>
+    <div class="card">
+      <img class="icon" src="favicon-c-monograma.svg" alt="Favicon C" />
+      <h2>C — Monograma CO</h2>
+      <p>Mais marca, visual limpo e memorável.</p>
+    </div>
+  </div>
+</body>
+</html>
