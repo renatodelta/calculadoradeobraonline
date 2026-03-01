@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Redirecionamentos 301 de URLs antigas para nova estrutura
+RewriteRule ^concreto\.html$ /calculadoras/concreto.html [R=301,L,NC]
+RewriteRule ^tijolos\.html$ /calculadoras/tijolos.html [R=301,L,NC]
+RewriteRule ^piso\.html$ /calculadoras/piso.html [R=301,L,NC]
+RewriteRule ^reboco\.html$ /calculadoras/reboco.html [R=301,L,NC]
+RewriteRule ^quantos-tijolos-por-metro-quadrado\.html$ /artigos/quantos-tijolos-por-metro-quadrado.html [R=301,L,NC]
