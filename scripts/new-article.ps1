@@ -376,7 +376,10 @@ Assert-Condition -Condition ($updatedSitemap -ne $sitemapXml) -Message "Não foi
 $updatedSitemap = [regex]::Replace(
     $updatedSitemap,
     '(<loc>https://calculadoradeobraonline.com.br/artigos/index.html</loc>\s*<lastmod>)([^<]+)(</lastmod>)',
-    ('$1' + $dateIso + '$3')
+    [System.Text.RegularExpressions.MatchEvaluator]{
+        param($match)
+        return "$($match.Groups[1].Value)$dateIso$($match.Groups[3].Value)"
+    }
 )
 
 if (-not $DryRun) {
