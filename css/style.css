@@ -410,6 +410,10 @@ body {
     margin-bottom: 12px;
 }
 
+.article-content p {
+    text-align: justify;
+}
+
 .article-content ul,
 .article-content ol {
     padding-left: 22px;
@@ -456,6 +460,34 @@ body {
 
 .article-toc a:hover {
     text-decoration: underline;
+}
+
+.article-reader {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    background: #fbfdff;
+    margin: 14px 0 20px;
+}
+
+.article-reader h3 {
+    margin-top: 0;
+}
+
+.article-reader-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 6px;
+}
+
+.article-reader-controls .btn-secondary {
+    min-width: 132px;
+}
+
+.article-reader-status {
+    font-size: 0.9rem;
+    margin-bottom: 0;
 }
 
 .article-cta {

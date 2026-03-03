@@ -17,12 +17,14 @@
 <meta property="og:image" content="https://calculadoradeobraonline.com.br/assets/og-tracos-de-concreto-mais-usados-em-obras-residenciais.svg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Imagem de capa do artigo Traços de concreto mais usados em obras residenciais">
 <meta property="article:published_time" content="2026-02-28T09:00:00-03:00">
 <meta property="article:modified_time" content="2026-02-28T09:00:00-03:00">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Concreto: Traços Mais Usados em Obras Residenciais | Guia Prático">
 <meta name="twitter:description" content="Conheça os traços de concreto mais usados em obras residenciais, quando aplicar cada proporção e como evitar erros no preparo.">
 <meta name="twitter:image" content="https://calculadoradeobraonline.com.br/assets/og-tracos-de-concreto-mais-usados-em-obras-residenciais.svg">
+<meta name="twitter:image:alt" content="Imagem de capa do artigo Traços de concreto mais usados em obras residenciais">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="shortcut icon" href="/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -55,6 +57,33 @@
     "@id": "https://calculadoradeobraonline.com.br/artigos/tracos-de-concreto-mais-usados-em-obras-residenciais.html"
   },
   "inLanguage": "pt-BR"
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://calculadoradeobraonline.com.br/index.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Artigos",
+            "item": "https://calculadoradeobraonline.com.br/artigos/index.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Concreto: Traços Mais Usados em Obras Residenciais",
+            "item": "https://calculadoradeobraonline.com.br/artigos/tracos-de-concreto-mais-usados-em-obras-residenciais.html"
+        }
+    ]
 }
 </script>
 
@@ -104,6 +133,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p>O traço define a relação entre cimento, areia, brita e água. Em obras de casas, ele varia conforme o tipo de serviço: contrapiso, calçada, laje, viga, pilar ou fundação.</p>
                 <p>Neste guia, você vai conhecer os principais traços, quando usar cada um e como evitar erros no preparo do concreto.</p>
             </div>
+
+            <section class="article-reader" aria-label="Leitor automático do artigo">
+                <h3>Leitor do artigo (teste)</h3>
+                <p>Use os botões para ouvir este conteúdo em voz alta.</p>
+                <div class="article-reader-controls">
+                    <button type="button" class="btn-secondary" id="reader-play">Ouvir</button>
+                    <button type="button" class="btn-secondary" id="reader-pause">Pausar/Retomar</button>
+                    <button type="button" class="btn-secondary" id="reader-stop">Parar</button>
+                </div>
+                <p class="article-reader-status" id="reader-status" aria-live="polite">Pronto para leitura.</p>
+            </section>
 
             <nav class="article-toc" aria-label="Sumário do artigo">
                 <h3>Roteiro</h3>
@@ -201,6 +241,107 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script src="../js/script.js"></script>
+<script>
+(function () {
+    var synth = window.speechSynthesis;
+    var playBtn = document.getElementById('reader-play');
+    var pauseBtn = document.getElementById('reader-pause');
+    var stopBtn = document.getElementById('reader-stop');
+    var statusEl = document.getElementById('reader-status');
+    var article = document.querySelector('.article-content article');
+
+    if (!synth || !playBtn || !pauseBtn || !stopBtn || !statusEl || !article) {
+        if (statusEl) {
+            statusEl.textContent = 'Leitor não suportado neste navegador.';
+        }
+        return;
+    }
+
+    var selectors = 'h2, h3, p, li';
+    var nodes = article.querySelectorAll(selectors);
+    var parts = [];
+
+    nodes.forEach(function (node) {
+        if (node.closest('.article-reader') || node.closest('.article-toc') || node.closest('.article-cta')) {
+            return;
+        }
+
+        var text = (node.textContent || '').trim();
+        if (text.length > 0) {
+            parts.push(text);
+        }
+    });
+
+    var fullText = parts.join('. ');
+    var utterance = null;
+
+    function updateStatus(text) {
+        statusEl.textContent = text;
+    }
+
+    function createUtterance() {
+        utterance = new SpeechSynthesisUtterance(fullText);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1;
+        utterance.pitch = 1;
+
+        utterance.onstart = function () {
+            updateStatus('Leitura em andamento...');
+        };
+
+        utterance.onpause = function () {
+            updateStatus('Leitura pausada.');
+        };
+
+        utterance.onresume = function () {
+            updateStatus('Leitura retomada.');
+        };
+
+        utterance.onend = function () {
+            updateStatus('Leitura finalizada.');
+        };
+
+        utterance.onerror = function () {
+            updateStatus('Não foi possível reproduzir a leitura.');
+        };
+    }
+
+    playBtn.addEventListener('click', function () {
+        if (!fullText) {
+            updateStatus('Conteúdo indisponível para leitura.');
+            return;
+        }
+
+        synth.cancel();
+        createUtterance();
+        synth.speak(utterance);
+    });
+
+    pauseBtn.addEventListener('click', function () {
+        if (synth.speaking && !synth.paused) {
+            synth.pause();
+            return;
+        }
+
+        if (synth.paused) {
+            synth.resume();
+            return;
+        }
+
+        updateStatus('Inicie a leitura primeiro.');
+    });
+
+    stopBtn.addEventListener('click', function () {
+        if (synth.speaking || synth.paused) {
+            synth.cancel();
+            updateStatus('Leitura interrompida.');
+            return;
+        }
+
+        updateStatus('Nenhuma leitura em andamento.');
+    });
+})();
+</script>
 
 </body>
 </html>

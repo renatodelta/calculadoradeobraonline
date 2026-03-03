@@ -9,7 +9,7 @@ param(
     [string]$Description,
 
     [string]$Category = "Guia de Obra",
-    [int]$ReadTime = 7,
+    [int]$ReadTime = 0,
     [string]$Subtitle,
     [string]$OgImageFile,
     [string]$PublishDate,
@@ -55,6 +55,38 @@ function Get-ShortText {
     }
 
     return ($Text.Substring(0, $MaxLength - 1).TrimEnd() + "…")
+}
+
+function Get-WordCountFromHtml {
+    param([string]$Html)
+
+    if ([string]::IsNullOrWhiteSpace($Html)) {
+        return 0
+    }
+
+    $textOnly = [regex]::Replace($Html, '<[^>]+>', ' ')
+    $textOnly = [regex]::Replace($textOnly, '&[a-zA-Z#0-9]+;', ' ')
+    $textOnly = [regex]::Replace($textOnly, '\s+', ' ').Trim()
+
+    if ([string]::IsNullOrWhiteSpace($textOnly)) {
+        return 0
+    }
+
+    return ([regex]::Matches($textOnly, '\b\S+\b')).Count
+}
+
+function Render-Template {
+    param(
+        [string]$Template,
+        [hashtable]$Replacements
+    )
+
+    $rendered = $Template
+    foreach ($key in $Replacements.Keys) {
+        $rendered = $rendered.Replace($key, $Replacements[$key])
+    }
+
+    return $rendered
 }
 
 function Get-TitleLines {
@@ -158,7 +190,7 @@ $sitemapPath = Join-Path $workspaceRoot "sitemap.xml"
 $assetsDir = Join-Path $workspaceRoot "assets"
 
 Assert-Condition -Condition ($Slug -match '^[a-z0-9]+(?:-[a-z0-9]+)*$') -Message "Slug inválido. Use apenas letras minúsculas, números e hífen (ex: como-calcular-areia)."
-Assert-Condition -Condition ($ReadTime -gt 0) -Message "ReadTime deve ser maior que zero."
+Assert-Condition -Condition ($ReadTime -ge 0) -Message "ReadTime não pode ser negativo."
 Assert-Condition -Condition (Test-Path $templatePath) -Message "Template não encontrado em artigos/template-artigo.html"
 Assert-Condition -Condition (Test-Path $indexPath) -Message "Índice de artigos não encontrado em artigos/index.html"
 Assert-Condition -Condition (Test-Path $sitemapPath) -Message "sitemap.xml não encontrado"
@@ -198,9 +230,9 @@ $dateBr = $publishDateObj.ToString("dd/MM/yyyy")
 $isoDateTime = "$dateIso`T09:00:00-03:00"
 
 $keyword = $h1.ToLowerInvariant()
-$intro1 = "Se voce quer entender $keyword, este guia reune os pontos principais para acertar no planejamento e na execucao da obra."
+$intro1 = "Se voce quer entender $keyword sem depender de chute, este guia organiza o assunto de forma pratica e aplicavel no canteiro. O objetivo aqui e tirar duvidas que normalmente causam retrabalho: qual referencia adotar, como transformar medida em quantidade real e como registrar as premissas para nao perder o controle. Quando essa etapa e bem feita, a obra ganha previsibilidade de custo, melhora o cronograma e reduz risco de falta de material no momento critico da execucao."
 $intro2 = $Description
-$intro3 = "Ao final, voce tera um passo a passo pratico, um exemplo numerico e um checklist para reduzir desperdicios."
+$intro3 = "Ao final, voce tera um roteiro completo com criterios tecnicos, exemplo aplicado, pontos de verificacao e um checklist objetivo para compra e execucao. A proposta e que o conteudo sirva tanto para quem esta iniciando quanto para quem ja executa obra e quer padronizar decisao. Assim, cada etapa fica documentada, comparavel e facil de revisar antes da contratacao de equipe, pedido de materiais e liberacao do servico."
 
 $section1Title = "Conceitos essenciais"
 $section2Title = "Passo a passo de calculo"
@@ -208,24 +240,24 @@ $section3Title = "Exemplo pratico"
 $section4Title = "Erros comuns e como evitar"
 $section5Title = "FAQ rapido"
 
-$section1Paragraph = "Antes de comecar, defina objetivo, unidade de medida e condicoes de execucao. Esses tres pontos evitam divergencias no orcamento e no consumo de material."
-$point1 = "Use sempre a mesma unidade (m, m2, m3 ou litros) do inicio ao fim."
-$point2 = "Considere perdas naturais e margem de seguranca entre 5% e 10%."
-$point3 = "Valide as premissas com o profissional responsavel pela obra."
+$section1Paragraph = "Antes de iniciar qualquer calculo relacionado a $keyword, estruture uma base de informacoes minima: finalidade do servico, area ou volume real, condicoes de aplicacao e padrao de acabamento esperado. Essa definicao evita comparacoes erradas entre referencias tecnicas e protege o orcamento de variacoes nao previstas. Outro ponto essencial e registrar origem dos coeficientes usados, pois isso permite revisar o calculo depois, explicar decisao para a equipe e ajustar rapidamente quando houver mudanca de escopo, projeto ou metodo de execucao."
+$point1 = "Padronize unidade e criterio desde o primeiro rascunho ate a planilha final, evitando mistura entre m, m2, m3, litro, saco e peca no mesmo calculo."
+$point2 = "Inclua perdas tecnicas e operacionais de forma consciente, considerando transporte interno, recortes, retrabalho e variacao de desempenho entre equipes."
+$point3 = "Confirme premissas com profissional responsavel e alinhe o metodo de medicao com quem vai comprar, receber e aplicar o material na obra."
 
-$section2Paragraph = "Com base no tema, siga uma rotina simples: medir, aplicar media tecnica, calcular total e ajustar com margem de seguranca."
+$section2Paragraph = "Para transformar medicao em quantidade confiavel, use uma sequencia unica em todas as frentes: medir corretamente, aplicar consumo tecnico compativel com o servico, converter para unidade de compra e adicionar margem de seguranca baseada no contexto real da obra. Esse fluxo reduz erro humano porque cria um padrao de verificacao antes da compra. Sempre que possivel, compare o resultado com historico de obras parecidas e ajuste o coeficiente quando houver diferenca de material, equipe, clima ou metodo executivo, mantendo rastreabilidade da decisao."
 $subsectionTitle = "Formula base"
-$formulaText = "Quantidade total = medida principal x consumo medio tecnico x fator de seguranca."
+$formulaText = "Quantidade total = medida principal x consumo medio tecnico x fator de seguranca. Na pratica, o fator de seguranca pode variar por complexidade do servico, nivel de recorte, experiencia da equipe e condicoes de armazenamento. Em vez de aplicar um numero fixo para tudo, vale classificar a atividade por risco baixo, medio ou alto e usar margens coerentes para cada caso. Essa simples classificacao melhora previsibilidade de compra e diminui sobra desnecessaria no fechamento da obra."
 
-$step1 = "Meca a area/volume real da aplicacao com trena e registre os valores."
-$step2 = "Aplique o consumo medio recomendado para o tipo de servico."
-$step3 = "Acrescente margem de seguranca e arredonde para compra."
+$step1 = "Meça area ou volume real da aplicacao, registre em planilha e marque as premissas de medicao (descontos, recortes, espessuras, trechos nao executados)."
+$step2 = "Aplique consumo tecnico por tipo de material e servico, conferindo se a referencia usada corresponde ao mesmo metodo executivo da sua equipe."
+$step3 = "Converta para unidade de compra, adicione margem de seguranca coerente com o risco do servico e gere uma lista final pronta para cotacao."
 
-$section4Text = "Os erros mais comuns sao usar consumo medio inadequado, nao considerar perdas e misturar unidades no calculo. Tambem e frequente ignorar variacoes de execucao em campo."
-$section5Text = "FAQ: 1) Qual margem usar? Em geral 5% a 10%. 2) Posso usar media unica para tudo? Nao, cada aplicacao muda o consumo. 3) Vale arredondar para cima? Sim, para evitar interrupcao da obra."
+$section4Text = "Os erros mais comuns em $keyword aparecem quando o calculo e feito com pressa e sem padrao: consumo medio escolhido sem criterio, unidade misturada no meio da conta, perda ignorada e arredondamento incoerente com a forma de compra. Outro erro recorrente e desconsiderar variacao de produtividade entre equipes e condicoes diferentes de execucao, como acesso dificil, clima instavel e mudanca de frente de trabalho. Para evitar esse problema, adote checklist de entrada, revisao antes da compra e controle de consumo real durante a execucao, ajustando a referencia para os proximos lotes."
+$section5Text = "FAQ rapido: 1) Qual margem usar? Em servicos simples e bem controlados, comece com 5%; em cenarios com recortes, retrabalho ou logistica complexa, use 8% a 12%. 2) Posso aplicar a mesma media para qualquer obra? Nao. Mudam material, metodo, equipe e acabamento, entao o consumo precisa ser contextualizado. 3) Vale arredondar para cima? Sim, mas com criterio de lote e armazenamento, evitando compra excessiva. 4) Quando revisar o calculo? Sempre que houver alteracao de escopo, mudanca de equipe ou diferenca relevante entre previsto e consumido."
 
-$conclusion1 = "Dominar $keyword ajuda a comprar melhor, reduzir retrabalho e manter o orcamento sob controle."
-$conclusion2 = "Com um metodo padronizado e revisao tecnica, voce ganha previsibilidade e seguranca na execucao."
+$conclusion1 = "Dominar $keyword melhora decisao de compra, reduz retrabalho e protege o orcamento contra variacoes que normalmente aparecem na fase de execucao."
+$conclusion2 = "Com metodo padronizado, registro de premissas e revisao tecnica em cada etapa, voce ganha previsibilidade de custo, ritmo de obra mais estavel e mais seguranca para executar sem interrupcoes."
 
 $template = Get-Content -Path $templatePath -Raw -Encoding UTF8
 
@@ -277,10 +309,46 @@ $replacements = @{
     "[TEXTO DO BOTAO]" = $CtaButtonText
 }
 
-$articleHtml = $template
-foreach ($key in $replacements.Keys) {
-    $articleHtml = $articleHtml.Replace($key, $replacements[$key])
+$targetWordCount = 1000
+$minWordCount = 900
+$maxExpansionAttempts = 3
+$expansionAttempts = 0
+$articleWordCount = 0
+
+$section4Expansion = "Como rotina de controle, compare o previsto com o realizado em ciclos curtos, documente diferencas e atualize coeficientes com base em dados da propria obra. Esse habito transforma estimativa em processo de melhoria continua e reduz surpresas financeiras no fechamento."
+$section5Expansion = "5) Como escolher referencia confiavel? Priorize fonte tecnica, histórico interno e validacao em campo. 6) Preciso registrar justificativa de ajuste? Sim, porque isso evita retrabalho analitico e melhora comunicacao entre planejamento, compras e execucao."
+
+do {
+    $replacements["[CONTEUDO DA SECAO 4]"] = $section4Text
+    $replacements["[CONTEUDO DA SECAO 5]"] = $section5Text
+    $replacements["[ORIENTACAO PRATICA FINAL PARA O USUARIO]"] = $conclusion2
+
+    $articleHtml = Render-Template -Template $template -Replacements $replacements
+    $articleWordCount = Get-WordCountFromHtml -Html $articleHtml
+
+    if ($articleWordCount -lt $minWordCount -and $expansionAttempts -lt $maxExpansionAttempts) {
+        $section4Text += " " + $section4Expansion
+        $section5Text += " " + $section5Expansion
+        $conclusion2 += " Revise o resultado com a equipe antes da compra e mantenha um controle simples de consumo real por etapa para calibrar os proximos calculos."
+    }
+
+    $expansionAttempts++
 }
+while ($articleWordCount -lt $minWordCount -and $expansionAttempts -le $maxExpansionAttempts)
+
+if ($articleWordCount -lt $minWordCount) {
+    Write-Warning "Artigo gerado com $articleWordCount palavras (abaixo da meta de ~1000)."
+}
+else {
+    Write-Host "- Texto estimado: $articleWordCount palavras" -ForegroundColor DarkCyan
+}
+
+if ($ReadTime -le 0) {
+    $ReadTime = [Math]::Max(5, [int][Math]::Ceiling($articleWordCount / 190.0))
+}
+
+$replacements["[X]"] = $ReadTime
+$articleHtml = Render-Template -Template $template -Replacements $replacements
 
 $placeholderMatches = [regex]::Matches($articleHtml, '\[[A-Z][A-Z0-9 \-/]{2,}\]')
 if ($placeholderMatches.Count -gt 0) {
