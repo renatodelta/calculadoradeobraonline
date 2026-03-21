@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Piso Online | Calculadora de Obra</title>
-<meta name="description" content="Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.">
+<title>Calculadora de Piso: Quantidade de peças por m² para sua obra</title>
+<meta name="description" content="Descubra quantas peças de piso ou cerâmica você precisa por m². Veja fórmula, exemplo prático, dicas e evite desperdício!">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/piso.html">
 <meta property="og:type" content="website">
@@ -72,25 +72,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="hero">
     <div class="container">
-        <h2>Calculadora de Piso e Cerâmica</h2>
-        <p>Descubra quantas peças de piso você vai precisar para sua obra.</p>
+        <h1>Calculadora de piso: saiba quantas peças comprar por m²</h1>
+        <p>Use esta calculadora para descobrir quantas peças de piso ou cerâmica você vai precisar para revestir sua área, evitando desperdícios e custos extras. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
     </div>
 </section>
 
 <section id="calculadora" class="calculator">
     <div class="container">
-        <h3>Calcule a quantidade de pisos</h3>
-        
+        <h2>Calcule a quantidade de pisos</h2>
         <div class="form-group">
             <label>Comprimento do ambiente (metros):</label>
             <input type="number" id="comprimento" placeholder="Ex: 5" min="0.1" step="0.1">
         </div>
-
         <div class="form-group">
             <label>Largura do ambiente (metros):</label>
             <input type="number" id="largura" placeholder="Ex: 4" min="0.1" step="0.1">
         </div>
-
         <div class="form-group">
             <label>Tamanho da peça de piso (cm):</label>
             <select id="tamanhoPiso" class="select-input">
@@ -104,36 +101,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="custom">Tamanho personalizado</option>
             </select>
         </div>
-
         <div class="form-group" id="customSize" style="display: none;">
             <label>Dimensões personalizadas (cm):</label>
             <input type="number" id="pisoComprimento" placeholder="Comprimento (cm)" min="1" step="1" style="width: 48%; display: inline-block;">
             <input type="number" id="pisoLargura" placeholder="Largura (cm)" min="1" step="1" style="width: 48%; display: inline-block; margin-left: 4%;">
         </div>
-
         <button class="btn-primary" onclick="calcular()">Calcular Piso</button>
-
         <div id="resultado"></div>
     </div>
 </section>
 
+
 <section class="about">
     <div class="container">
-        <h2>Como funciona o cálculo?</h2>
+        <h2>Como funciona o cálculo</h2>
         <p>A calculadora determina a área total do ambiente (comprimento × largura) e calcula quantas peças de piso são necessárias baseado no tamanho escolhido. Inclui automaticamente 10% de margem para perdas, cortes e quebras.</p>
-        
-        <h3>Tamanhos comuns de piso:</h3>
+
+        <h2>Fórmula utilizada</h2>
         <ul>
-            <li><strong>20x20 cm:</strong> 25 peças por m²</li>
-            <li><strong>30x30 cm:</strong> 11 peças por m²</li>
-            <li><strong>40x40 cm:</strong> 6,25 peças por m²</li>
-            <li><strong>45x45 cm:</strong> 5 peças por m²</li>
-            <li><strong>50x50 cm:</strong> 4 peças por m²</li>
-            <li><strong>60x60 cm:</strong> 2,78 peças por m²</li>
-            <li><strong>80x80 cm:</strong> 1,56 peças por m²</li>
+            <li><strong>Área total</strong> = comprimento × largura (em metros)</li>
+            <li><strong>Peças por m²</strong> depende do tamanho da peça (veja abaixo)</li>
+        </ul>
+        <ul>
+            <li>20x20 cm: 25 peças/m²</li>
+            <li>30x30 cm: 11 peças/m²</li>
+            <li>40x40 cm: 6,25 peças/m²</li>
+            <li>45x45 cm: 5 peças/m²</li>
+            <li>50x50 cm: 4 peças/m²</li>
+            <li>60x60 cm: 2,78 peças/m²</li>
+            <li>80x80 cm: 1,56 peças/m²</li>
         </ul>
 
-        <h2>Perguntas Frequentes</h2>
+        <h2>Exemplo prático de cálculo</h2>
+        <p>Para um ambiente de 5m x 4m (20m²) usando piso 60x60 cm:<br>
+        <strong>Quantidade</strong> = 20 × 2,78 = 55,6 peças<br>
+        Adicione 10% de margem: 55,6 × 1,1 ≈ 62 peças</p>
+
+        <h2>Dicas para economizar</h2>
+        <ul>
+            <li>Sempre compre 10-15% a mais para cortes e quebras.</li>
+            <li>Para ambientes com muitos recortes, considere 15-20% de margem.</li>
+            <li>Guarde peças inteiras para reposição futura.</li>
+        </ul>
+
+        <h2>Perguntas frequentes (FAQ)</h2>
         <p><strong>❓ Quantas peças de piso 60x60 em 1 m²?</strong><br>
         Aproximadamente 2,78 peças. Nossa calculadora faz esse cálculo automaticamente.</p>
 
@@ -148,6 +159,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p><strong>❓ Quanto de argamassa vou precisar?</strong><br>
         Em média, 5kg de argamassa colante por m². Para um ambiente de 20m², você precisará de aproximadamente 100kg (2 sacos de 50kg).</p>
+
+        <h3>Veja também</h3>
+        <ul>
+            <li><a href="concreto.html">Calculadora de concreto</a></li>
+            <li><a href="tijolos.html">Calculadora de tijolos</a></li>
+            <li><a href="reboco.html">Calculadora de reboco</a></li>
+            <li><a href="argamassa-m2.html">Calculadora de argamassa</a></li>
+        </ul>
     </div>
 </section>
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Argamassa por m² | Calculadora de Obra</title>
-<meta name="description" content="Calcule argamassa por m² de alvenaria: consumo em m³, sacos de cimento, areia e cal por tipo de bloco, junta e traço. Veja dicas, links para outras calculadoras e referências técnicas." >
+<title>Calculadora de Argamassa: Consumo por m², cimento, areia e cal</title>
+<meta name="description" content="Descubra quanto de argamassa, cimento, areia e cal você vai usar por m² de alvenaria. Veja fórmula, exemplo prático, dicas e evite desperdício!">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/argamassa-m2.html">
 <meta property="og:type" content="website">
@@ -68,21 +68,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <section class="hero">
     <div class="container">
-        <h2>Calculadora de Argamassa por m²</h2>
-        <p>Calcule o consumo de argamassa para assentamento de blocos e tijolos, estimando cimento, areia e cal conforme o tipo de elemento, junta e traço. Veja dicas, referências e links para outras calculadoras.</p>
+        <h1>Calculadora de argamassa: saiba quanto cimento, areia e cal usar por m²</h1>
+        <p>Use esta calculadora para descobrir o consumo de argamassa para assentamento de blocos e tijolos, estimando cimento, areia e cal conforme o tipo de elemento, junta e traço. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
     </div>
 </section>
 
 
 <section id="calculadora" class="calculator">
     <div class="container">
-        <h3>Preencha os dados da sua alvenaria</h3>
-
+        <h2>Calcule o consumo de argamassa</h2>
         <div class="form-group">
             <label>Área de alvenaria (m²):</label>
             <input type="number" id="area" placeholder="Ex: 80" min="0.1" step="0.1">
         </div>
-
         <div class="form-group">
             <label>Tipo de bloco/tijolo:</label>
             <select id="tipoElemento" class="select-input">
@@ -92,12 +90,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <option value="bloco_19x19x39">Bloco estrutural 19x19x39 cm</option>
             </select>
         </div>
-
         <div class="form-group">
             <label>Espessura média da junta (mm):</label>
             <input type="number" id="junta" value="12" min="8" max="20" step="1">
         </div>
-
         <div class="form-group">
             <label>Traço da argamassa:</label>
             <select id="traco" class="select-input">
@@ -107,23 +103,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <option value="1:2:8">1:2:8 (cimento:cal:areia) - Com cal</option>
             </select>
         </div>
-
         <div class="form-group">
             <label>Margem de perdas (%):</label>
             <input type="number" id="perda" value="10" min="0" max="25" step="1">
         </div>
-
         <button class="btn-primary" onclick="calcularArgamassaM2()">Calcular Argamassa</button>
-
         <div id="resultado"></div>
     </div>
 </section>
 
+
 <section class="about">
     <div class="container">
-        <h2>Como funciona o cálculo?</h2>
+        <h2>Como funciona o cálculo</h2>
         <p>O cálculo usa coeficientes médios de consumo de argamassa fresca por m² para diferentes tipos de bloco/tijolo, ajustados pela espessura da junta. Depois disso, a calculadora aplica a margem de perdas e converte o volume em materiais por traço.</p>
-        <h3>Consumo base por tipo:</h3>
+
+        <h2>Fórmula utilizada</h2>
         <ul>
             <li>Tijolo cerâmico 9x19x19: 0,020 m³/m²</li>
             <li>Tijolo cerâmico 9x19x29: 0,018 m³/m²</li>
@@ -131,18 +126,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li>Bloco estrutural 19x19x39: 0,021 m³/m²</li>
         </ul>
 
-        <h3>Dica rápida</h3>
-        <p>Para estimar <a href="tijolos.html">tijolos</a>, <a href="piso.html">pisos</a> ou <a href="reboco.html">reboco</a>, acesse nossas outras calculadoras. Para concreto, veja a <a href="concreto.html">Calculadora de Concreto</a>.</p>
+        <h2>Exemplo prático de cálculo</h2>
+        <p>Para uma parede de 30m² usando tijolo cerâmico 9x19x19, junta de 12mm:<br>
+        <strong>Consumo base</strong> = 30 × 0,020 = 0,6 m³ de argamassa<br>
+        Adicione 10% de perdas: 0,6 × 1,1 = 0,66 m³</p>
 
-        <h3>Referências técnicas e leitura recomendada</h3>
+        <h2>Dicas para economizar</h2>
         <ul>
-            <li><a href="https://www.abcp.org.br/publicacoes/guia-pratico-argamassas/" target="_blank" rel="noopener">Guia Prático de Argamassas – ABCP</a></li>
-            <li><a href="https://www.normasabnt.com/" target="_blank" rel="noopener">Normas ABNT para argamassas</a></li>
-            <li><a href="https://www.senai.br/noticias/2022/10/como-evitar-erros-na-argamassa/" target="_blank" rel="noopener">Como evitar erros na argamassa – SENAI</a></li>
-            <li><a href="../artigos/como-calcular-argamassa-assentamento-tijolos.html">Como calcular argamassa para assentamento de tijolos</a></li>
+            <li>Sempre compre 10-15% a mais para cobrir perdas e desperdícios.</li>
+            <li>Consulte o traço recomendado para cada tipo de bloco/tijolo.</li>
+            <li>Use areia limpa e de boa procedência para melhor rendimento.</li>
         </ul>
 
-        <h2>Perguntas frequentes</h2>
+        <h2>Perguntas frequentes (FAQ)</h2>
         <p><strong>❓ A junta influencia muito o consumo?</strong><br>
         Sim. Juntas maiores aumentam o volume de argamassa por m² e impactam diretamente a compra de cimento e areia.</p>
 
@@ -154,6 +150,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <p><strong>❓ Posso usar o mesmo traço em qualquer obra?</strong><br>
         O traço depende de projeto, tipo de bloco e orientação técnica. Use esta calculadora como estimativa de planejamento.</p>
+
+        <h3>Veja também</h3>
+        <ul>
+            <li><a href="concreto.html">Calculadora de concreto</a></li>
+            <li><a href="tijolos.html">Calculadora de tijolos</a></li>
+            <li><a href="reboco.html">Calculadora de reboco</a></li>
+            <li><a href="piso.html">Calculadora de piso</a></li>
+        </ul>
     </div>
 </section>
 <section class="about">
