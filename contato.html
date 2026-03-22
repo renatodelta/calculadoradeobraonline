@@ -70,54 +70,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 <div class="menu-overlay"></div>
 
-<section class="hero">
-    <div class="container">
-        <h2>Fale com a nossa equipe</h2>
-        <p>Envie dúvidas, sugestões ou feedback sobre as calculadoras de obra.</p>
-    </div>
-</section>
 
-<section class="calculator">
-    <div class="container">
-        <h3>Formulário de contato</h3>
-        <form action="https://formspree.io/f/xwvnwjdg" method="POST">
-            <div class="form-group">
-                <label>Seu nome:</label>
-                <input type="text" name="nome" placeholder="Ex: João Silva" required>
-            </div>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-            <div class="form-group">
-                <label>Seu e-mail:</label>
-                <input type="email" name="email" placeholder="Ex: joao@email.com" required>
-            </div>
-
-            <div class="form-group">
-                <label>Assunto:</label>
-                <input type="text" name="assunto" placeholder="Ex: Dúvida sobre cálculo" required>
-            </div>
-
-            <div class="form-group">
-                <label>Sua mensagem:</label>
-                <textarea name="message" placeholder="Descreva sua dúvida ou sugestão..." required style="min-height: 150px; resize: vertical;"></textarea>
-            </div>
-
-            <button type="submit" class="btn-primary">Enviar Mensagem</button>
-        </form>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
-        <div class="footer-links">
-            <a href="sobre.html">Sobre</a> |
-            <a href="contato.html">Contato</a> |
-            <a href="politica-de-privacidade.html">Política de Privacidade</a>
+    <header class="header">
+        <div class="container alignwide">
+            <h1 class="logo"><a href="index.html">Calculadora de Obra Online</a></h1>
+            <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+            </button>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="index.html#calculadoras">Calculadoras</a>
+                <a href="artigos/index.html">Artigos</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
         </div>
-    </div>
-</footer>
+    </header>
+    <div class="menu-overlay"></div>
 
-<script src="js/script.js"></script>
+    <main class="section">
+        <div class="container alignwide">
+            <h2>Contato</h2>
+            <p>Preencha o formulário abaixo para enviar dúvidas, sugestões ou feedback. Retornaremos o mais breve possível.</p>
+            <form action="#" method="post" class="qrten-theme-contact-form">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </div>
+    </main>
 
+    <footer class="footer">
+        <div class="container alignwide">
+            <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="sobre.html">Sobre</a> |
+                <a href="contato.html">Contato</a> |
+                <a href="politica-de-privacidade.html">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
 </body>
-</html>
