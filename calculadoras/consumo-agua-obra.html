@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Consumo de Água na Obra | Ferramenta Online</title>
+<meta name="description" content="Calcule o consumo de água em obras residenciais: concreto, argamassa, limpeza e equipe. Ferramenta online gratuita para estimar litros necessários e evitar desperdício.">
+<meta name="author" content="Calculadora de Obra Online">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/consumo-agua-obra.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Calculadora de Obra Online">
+<meta property="og:title" content="Calculadora de Consumo de Água na Obra | Ferramenta Online">
+<meta property="og:description" content="Calcule o consumo de água em obras residenciais: concreto, argamassa, limpeza e equipe. Ferramenta online gratuita para estimar litros necessários e evitar desperdício.">
+<meta property="og:url" content="https://calculadoradeobraonline.com.br/calculadoras/consumo-agua-obra.html">
+<meta property="og:image" content="https://calculadoradeobraonline.com.br/assets/og-consumo-agua-obra.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Imagem da calculadora de consumo de água na obra">
+<meta property="article:published_time" content="2026-03-26T09:00:00-03:00">
+<meta property="article:modified_time" content="2026-03-26T09:00:00-03:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculadora de Consumo de Água na Obra | Ferramenta Online">
+<meta name="twitter:description" content="Calcule o consumo de água em obras residenciais: concreto, argamassa, limpeza e equipe. Ferramenta online gratuita para estimar litros necessários e evitar desperdício.">
+<meta name="twitter:image" content="https://calculadoradeobraonline.com.br/assets/og-consumo-agua-obra.svg">
+<meta name="twitter:image:alt" content="Imagem da calculadora de consumo de água na obra">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<header class="header">
+    <div class="container alignwide">
+        <div class="logo"><a href="../index.html">Calculadora de Obra Online</a></div>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+        </button>
+        <nav>
+            <a href="../index.html">Início</a>
+            <a href="../index.html#calculadoras">Calculadoras</a>
+            <a href="../artigos/index.html">Artigos</a>
+            <a href="../sobre.html">Sobre</a>
+            <a href="../contato.html">Contato</a>
+        </nav>
+    </div>
+</header>
+<div class="menu-overlay"></div>
+<section class="hero">
+    <div class="container">
+        <h1>Calculadora de Consumo de Água na Obra</h1>
+        <p>Estime o consumo total de água para concreto, argamassa, limpeza e equipe. Evite desperdícios e planeje o abastecimento da sua obra.</p>
+    </div>
+</section>
+<section class="section calculator-section">
+    <div class="container">
+        <form id="calc-agua-obra" class="calculator-form">
+            <label>Volume de concreto (m³):<br><input type="number" min="0" step="0.01" id="concreto" placeholder="Ex: 5"></label><br>
+            <label>Volume de argamassa (m³):<br><input type="number" min="0" step="0.01" id="argamassa" placeholder="Ex: 2"></label><br>
+            <label>Número de trabalhadores:<br><input type="number" min="0" step="1" id="trabalhadores" placeholder="Ex: 6"></label><br>
+            <label>Dias de obra:<br><input type="number" min="0" step="1" id="dias" placeholder="Ex: 30"></label><br>
+            <label>Percentual para limpeza/curas (%):<br><input type="number" min="0" max="100" step="1" id="limpeza" value="20"></label><br>
+            <label>Margem de segurança (%):<br><input type="number" min="0" max="100" step="1" id="margem" value="10"></label><br>
+            <button type="button" onclick="calcularAguaObra()">Calcular Consumo de Água</button>
+        </form>
+        <div id="resultado-agua-obra" class="calculator-result"></div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container alignwide">
+        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+        <div class="footer-links">
+            <a href="../sobre.html">Sobre</a> |
+            <a href="../contato.html">Contato</a> |
+            <a href="../politica-de-privacidade.html">Política de Privacidade</a>
+        </div>
+    </div>
+</footer>
+<script src="../js/script.js"></script>
+<script>
+function calcularAguaObra() {
+    const concreto = parseFloat(document.getElementById('concreto').value) || 0;
+    const argamassa = parseFloat(document.getElementById('argamassa').value) || 0;
+    const trabalhadores = parseInt(document.getElementById('trabalhadores').value) || 0;
+    const dias = parseInt(document.getElementById('dias').value) || 0;
+    const limpeza = parseFloat(document.getElementById('limpeza').value) || 0;
+    const margem = parseFloat(document.getElementById('margem').value) || 0;
+
+    // Consumo médio
+    const aguaConcreto = concreto * 190; // média 180-200 L/m³
+    const aguaArgamassa = argamassa * 180; // média 160-200 L/m³
+    const aguaEquipe = trabalhadores * dias * 40; // média 30-50 L/dia
+    let total = aguaConcreto + aguaArgamassa + aguaEquipe;
+    total += total * (limpeza / 100);
+    total += total * (margem / 100);
+
+    document.getElementById('resultado-agua-obra').innerHTML =
+        `<h3>Consumo estimado de água:</h3>
+        <p><strong>${total.toLocaleString('pt-BR', {maximumFractionDigits:0})} litros</strong></p>
+        <ul>
+            <li>Concreto: ${aguaConcreto.toLocaleString('pt-BR', {maximumFractionDigits:0})} L</li>
+            <li>Argamassa: ${aguaArgamassa.toLocaleString('pt-BR', {maximumFractionDigits:0})} L</li>
+            <li>Equipe: ${aguaEquipe.toLocaleString('pt-BR', {maximumFractionDigits:0})} L</li>
+            <li>Limpeza/curas: ${limpeza}%</li>
+            <li>Margem de segurança: ${margem}%</li>
+        </ul>`;
+}
+</script>
+</body>
+</html>
