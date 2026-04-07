@@ -11,15 +11,15 @@
     --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     --surface: #ffffff;
     --surface-glass: rgba(255, 255, 255, 0.85);
-    
+
     --text-primary: #0f172a;
     --text-secondary: #475569;
     --text-disabled: #94a3b8;
-    
+
     --accent: #f97316;
     --accent-hover: #ea580c;
     --accent-light: #ffedd5;
-    
+
     --primary: #0ea5e9;
     --primary-hover: #0284c7;
     --primary-light: #e0f2fe;
@@ -38,7 +38,7 @@
     --shadow-md: 0 8px 16px -4px rgba(15, 23, 42, 0.06), 0 4px 8px -4px rgba(15, 23, 42, 0.04);
     --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
     --shadow-glow: 0 0 20px rgba(249, 115, 22, 0.15);
-    
+
     /* Transitions */
     --transition-fast: 0.15s ease-in-out;
     --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -246,12 +246,14 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-.btn-primary, .calculator button {
+.btn-primary,
+.calculator button {
     background: var(--accent);
     color: #fff;
 }
 
-.btn-primary:hover, .calculator button:hover {
+.btn-primary:hover,
+.calculator button:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md), var(--shadow-glow);
@@ -277,7 +279,7 @@ body {
 
 .hero .container {
     background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="%23f1f5f9" stroke-width="2"/></svg>') center/cover,
-                linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
+        linear-gradient(135deg, #ffffff 0%, var(--primary-light) 100%);
     background-blend-mode: overlay;
     border-radius: var(--radius-xl);
     padding: 64px 32px;
@@ -293,7 +295,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
     opacity: 0.6;
     pointer-events: none;
 }
@@ -511,8 +513,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #resultado h3 {
@@ -677,6 +686,7 @@ body {
 
 /* Responsive Overrides */
 @media (min-width: 768px) {
+
     .menu-toggle,
     .menu-overlay {
         display: none;
@@ -699,7 +709,7 @@ body {
         padding: 8px 16px;
         font-size: 1rem;
     }
-    
+
     .header nav a:hover {
         transform: none;
         background: rgba(15, 23, 42, 0.05);
@@ -713,7 +723,7 @@ body {
     .card-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
-    
+
     .calculator .container {
         padding: 56px;
     }
@@ -723,11 +733,11 @@ body {
     .hero {
         padding: 80px 0 60px;
     }
-    
+
     .hero .container {
         padding: 80px 48px;
     }
-    
+
     .calculators,
     .calculator,
     .about,
