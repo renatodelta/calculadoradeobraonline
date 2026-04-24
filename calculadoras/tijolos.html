@@ -1,175 +1,175 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Tijolos por m²: Quantidade exata para sua obra</title>
-<meta name="description" content="Descubra quantos tijolos você vai usar por m² de parede. Veja fórmula, exemplo prático, dicas e evite desperdício!">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/tijolos">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Calculadora de Obra Online">
-<meta property="og:title" content="Calculadora de Tijolos Online | Calculadora de Obra">
-<meta property="og:description" content="Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.">
-<meta property="og:url" content="https://calculadoradeobraonline.com.br/calculadoras/tijolos.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Calculadora de Tijolos Online | Calculadora de Obra">
-<meta name="twitter:description" content="Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="shortcut icon" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Calculadora de Tijolos Online | Calculadora de Obra",
-    "url": "https://calculadoradeobraonline.com.br/calculadoras/tijolos.html",
-    "description": "Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.",
-    "inLanguage": "pt-BR",
-    "isPartOf": {
-        "@type": "WebSite",
-        "name": "Calculadora de Obra Online",
-        "url": "https://calculadoradeobraonline.com.br/"
-    }
-}
-</script>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
-<!-- End Google Tag Manager -->
-</head>
-
-<body>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<header class="header">
-    <div class="container alignwide">
-        <h1 class="logo"><a href="../">Calculadora de Obra Online</a></h1>
-        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-            <span></span>
-        </button>
-        <nav>
-            <a href="../">Início</a>
-            <a href="../index.html#calculadoras">Calculadoras</a>
-            <a href="../artigos/">Artigos</a>
-            <a href="../sobre">Sobre</a>
-            <a href="../contato">Contato</a>
-        </nav>
-    </div>
-</header>
-<div class="menu-overlay"></div>
-
-<section class="hero">
-    <div class="container">
-        <h1>Calculadora de tijolos por m²: saiba quantos comprar para sua obra</h1>
-        <p>Use esta calculadora para descobrir quantos tijolos serão necessários para sua parede, evitando desperdícios e custos extras. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
-    </div>
-</section>
-
-<section id="calculadora" class="calculator">
-    <div class="container">
-        <h2>Calcule a quantidade de tijolos</h2>
-        <div class="form-group">
-            <label>Área da parede (m²):</label>
-            <input type="number" id="area" placeholder="Ex: 20" min="0.1" step="0.5">
-        </div>
-        <div class="form-group">
-            <label>Tipo de tijolo:</label>
-            <select id="tipoTijolo" class="select-input">
-                <option value="8">Tijolo baiano 8 furos (25 tijolos/m²)</option>
-                <option value="6">Tijolo 6 furos (20 tijolos/m²)</option>
-                <option value="comum">Tijolo comum maciço (85 tijolos/m²)</option>
-                <option value="bloco">Bloco de concreto (12,5 blocos/m²)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Espessura do rejunte (cm):</label>
-            <input type="number" id="rejunte" placeholder="Ex: 1" value="1" min="0.5" step="0.5">
-        </div>
-        <button class="btn-primary" onclick="calcular()">Calcular Tijolos</button>
-        <div id="resultado"></div>
-    </div>
-</section>
-
-
-<section class="about">
-    <div class="container">
-        <h2>Como funciona o cálculo</h2>
-        <p>O cálculo considera a área total da parede e o tipo de tijolo escolhido. Cada tipo possui um rendimento médio por metro quadrado, levando em conta as dimensões do tijolo e a espessura da argamassa de assentamento.</p>
-
-        <h2>Fórmula utilizada</h2>
-        <ul>
-            <li><strong>Tijolo baiano 8 furos:</strong> 25 unidades por m²</li>
-            <li><strong>Tijolo 6 furos:</strong> 20 unidades por m²</li>
-            <li><strong>Tijolo comum maciço:</strong> 85 unidades por m²</li>
-            <li><strong>Bloco de concreto:</strong> 12,5 unidades por m²</li>
-        </ul>
-
-        <h2>Exemplo prático de cálculo</h2>
-        <p>Para uma parede de 10m² usando tijolo baiano 8 furos:<br>
-        <strong>Quantidade</strong> = 10 Ãƒ— 25 = 250 tijolos<br>
-        Adicione 10% de margem: 250 Ãƒ— 1,1 = 275 tijolos</p>
-
-        <h2>Dicas para economizar</h2>
-        <ul>
-            <li>Sempre compre 10-15% a mais para cobrir quebras e perdas.</li>
-            <li>Considere o tipo de tijolo e a espessura do rejunte para maior precisão.</li>
-            <li>Guarde tijolos inteiros para recortes e acabamentos.</li>
-        </ul>
-
-        <h2>Perguntas frequentes (FAQ)</h2>
-        <p><strong>âÂâ€œ Quantos tijolos vão em 1 m²?</strong><br>
-        Depende do tipo. Tijolo baiano 8 furos: ~25 unidades. Tijolo comum: ~85 unidades.</p>
-
-        <p><strong>âÂâ€œ Devo comprar tijolos extras?</strong><br>
-        Sim! Recomendamos adicionar 10-15% ao resultado para compensar quebras e desperdícios.</p>
-
-        <p><strong>âÂâ€œ A espessura do rejunte influencia?</strong><br>
-        Sim. Quanto mais grossa a camada de argamassa, menos tijolos por m². Nossa calculadora usa 1cm como padrão.</p>
-
-        <p><strong>âÂâ€œ Posso usar essa calculadora para bloco de concreto?</strong><br>
-        Sim! Selecione a opção "Bloco de concreto" no tipo de tijolo.</p>
-
-        <p><strong>âÂâ€œ Como calcular a argamassa de assentamento?</strong><br>
-        Use nossa <a href="argamassa-m2">Calculadora de Argamassa</a> para estimar argamassa.</p>
-
-        <h3>Veja também</h3>
-        <ul>
-            <li><a href="concreto">Calculadora de concreto</a></li>
-            <li><a href="reboco">Calculadora de reboco</a></li>
-            <li><a href="piso">Calculadora de piso</a></li>
-            <li><a href="argamassa-m2">Calculadora de argamassa</a></li>
-        </ul>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container alignwide">
-        <p>Ã‚Â© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
-
-        <div class="footer-links">
-            <a href="../sobre">Sobre</a> |
-            <a href="../contato">Contato</a> |
-            <a href="../politica-de-privacidade">Política de Privacidade</a>
-        </div>
-    </div>
-</footer>
-
-<script src="../js/tijolos.js"></script>
-<script src="../js/script.js" defer></script>
-
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Tijolos por m²: Quantidade exata para sua obra</title>
+<meta name="description" content="Descubra quantos tijolos você vai usar por m² de parede. Veja fórmula, exemplo prático, dicas e evite desperdício!">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/tijolos">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Calculadora de Obra Online">
+<meta property="og:title" content="Calculadora de Tijolos Online | Calculadora de Obra">
+<meta property="og:description" content="Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.">
+<meta property="og:url" content="https://calculadoradeobraonline.com.br/calculadoras/tijolos.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculadora de Tijolos Online | Calculadora de Obra">
+<meta name="twitter:description" content="Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Calculadora de Tijolos Online | Calculadora de Obra",
+    "url": "https://calculadoradeobraonline.com.br/calculadoras/tijolos.html",
+    "description": "Calcule a quantidade de tijolos necessários para sua obra. Estime tijolos por m² de forma rápida e precisa.",
+    "inLanguage": "pt-BR",
+    "isPartOf": {
+        "@type": "WebSite",
+        "name": "Calculadora de Obra Online",
+        "url": "https://calculadoradeobraonline.com.br/"
+    }
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+    <div class="container alignwide">
+        <h1 class="logo"><a href="../">Calculadora de Obra Online</a></h1>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+        </button>
+        <nav>
+            <a href="../">Início</a>
+            <a href="../index.html#calculadoras">Calculadoras</a>
+            <a href="../artigos/">Artigos</a>
+            <a href="../sobre">Sobre</a>
+            <a href="../contato">Contato</a>
+        </nav>
+    </div>
+</header>
+<div class="menu-overlay"></div>
+
+<section class="hero">
+    <div class="container">
+        <h1>Calculadora de tijolos por m²: saiba quantos comprar para sua obra</h1>
+        <p>Use esta calculadora para descobrir quantos tijolos serão necessários para sua parede, evitando desperdícios e custos extras. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
+    </div>
+</section>
+
+<section id="calculadora" class="calculator">
+    <div class="container">
+        <h2>Calcule a quantidade de tijolos</h2>
+        <div class="form-group">
+            <label>Área da parede (m²):</label>
+            <input type="number" id="area" placeholder="Ex: 20" min="0.1" step="0.5">
+        </div>
+        <div class="form-group">
+            <label>Tipo de tijolo:</label>
+            <select id="tipoTijolo" class="select-input">
+                <option value="8">Tijolo baiano 8 furos (25 tijolos/m²)</option>
+                <option value="6">Tijolo 6 furos (20 tijolos/m²)</option>
+                <option value="comum">Tijolo comum maciço (85 tijolos/m²)</option>
+                <option value="bloco">Bloco de concreto (12,5 blocos/m²)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Espessura do rejunte (cm):</label>
+            <input type="number" id="rejunte" placeholder="Ex: 1" value="1" min="0.5" step="0.5">
+        </div>
+        <button class="btn-primary" onclick="calcular()">Calcular Tijolos</button>
+        <div id="resultado"></div>
+    </div>
+</section>
+
+
+<section class="about">
+    <div class="container">
+        <h2>Como funciona o cálculo</h2>
+        <p>O cálculo considera a área total da parede e o tipo de tijolo escolhido. Cada tipo possui um rendimento médio por metro quadrado, levando em conta as dimensões do tijolo e a espessura da argamassa de assentamento.</p>
+
+        <h2>Fórmula utilizada</h2>
+        <ul>
+            <li><strong>Tijolo baiano 8 furos:</strong> 25 unidades por m²</li>
+            <li><strong>Tijolo 6 furos:</strong> 20 unidades por m²</li>
+            <li><strong>Tijolo comum maciço:</strong> 85 unidades por m²</li>
+            <li><strong>Bloco de concreto:</strong> 12,5 unidades por m²</li>
+        </ul>
+
+        <h2>Exemplo prático de cálculo</h2>
+        <p>Para uma parede de 10m² usando tijolo baiano 8 furos:<br>
+        <strong>Quantidade</strong> = 10 × 25 = 250 tijolos<br>
+        Adicione 10% de margem: 250 × 1,1 = 275 tijolos</p>
+
+        <h2>Dicas para economizar</h2>
+        <ul>
+            <li>Sempre compre 10-15% a mais para cobrir quebras e perdas.</li>
+            <li>Considere o tipo de tijolo e a espessura do rejunte para maior precisão.</li>
+            <li>Guarde tijolos inteiros para recortes e acabamentos.</li>
+        </ul>
+
+        <h2>Perguntas frequentes (FAQ)</h2>
+        <p><strong>• Quantos tijolos vão em 1 m²?</strong><br>
+        Depende do tipo. Tijolo baiano 8 furos: ~25 unidades. Tijolo comum: ~85 unidades.</p>
+
+        <p><strong>• Devo comprar tijolos extras?</strong><br>
+        Sim! Recomendamos adicionar 10-15% ao resultado para compensar quebras e desperdícios.</p>
+
+        <p><strong>• A espessura do rejunte influencia?</strong><br>
+        Sim. Quanto mais grossa a camada de argamassa, menos tijolos por m². Nossa calculadora usa 1cm como padrão.</p>
+
+        <p><strong>• Posso usar essa calculadora para bloco de concreto?</strong><br>
+        Sim! Selecione a opção "Bloco de concreto" no tipo de tijolo.</p>
+
+        <p><strong>• Como calcular a argamassa de assentamento?</strong><br>
+        Use nossa <a href="argamassa-m2">Calculadora de Argamassa</a> para estimar argamassa.</p>
+
+        <h3>Veja também</h3>
+        <ul>
+            <li><a href="concreto">Calculadora de concreto</a></li>
+            <li><a href="reboco">Calculadora de reboco</a></li>
+            <li><a href="piso">Calculadora de piso</a></li>
+            <li><a href="argamassa-m2">Calculadora de argamassa</a></li>
+        </ul>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container alignwide">
+        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+
+        <div class="footer-links">
+            <a href="../sobre">Sobre</a> |
+            <a href="../contato">Contato</a> |
+            <a href="../politica-de-privacidade">Política de Privacidade</a>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/tijolos.js"></script>
+<script src="../js/script.js" defer></script>
+
+</body>
+</html>

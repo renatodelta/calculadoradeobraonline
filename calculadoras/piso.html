@@ -1,191 +1,191 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Piso: Quantidade de peças por m² para sua obra</title>
-<meta name="description" content="Descubra quantas peças de piso ou cerâmica você precisa por m². Veja fórmula, exemplo prático, dicas e evite desperdício!">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/piso">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Calculadora de Obra Online">
-<meta property="og:title" content="Calculadora de Piso Online | Calculadora de Obra">
-<meta property="og:description" content="Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.">
-<meta property="og:url" content="https://calculadoradeobraonline.com.br/calculadoras/piso.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Calculadora de Piso Online | Calculadora de Obra">
-<meta name="twitter:description" content="Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="shortcut icon" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Calculadora de Piso Online | Calculadora de Obra",
-    "url": "https://calculadoradeobraonline.com.br/calculadoras/piso.html",
-    "description": "Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.",
-    "inLanguage": "pt-BR",
-    "isPartOf": {
-        "@type": "WebSite",
-        "name": "Calculadora de Obra Online",
-        "url": "https://calculadoradeobraonline.com.br/"
-    }
-}
-</script>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
-<!-- End Google Tag Manager -->
-</head>
-
-<body>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<header class="header">
-    <div class="container">
-        <h1 class="logo"><a href="../">Calculadora de Obra Online</a></h1>
-        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-            <span></span>
-        </button>
-        <nav>
-            <a href="../">Início</a>
-            <a href="../index.html#calculadoras">Calculadoras</a>
-            <a href="../artigos/">Artigos</a>
-            <a href="../sobre">Sobre</a>
-            <a href="../contato">Contato</a>
-        </nav>
-    </div>
-</header>
-<div class="menu-overlay"></div>
-
-<section class="hero">
-    <div class="container">
-        <h1>Calculadora de piso: saiba quantas peças comprar por m²</h1>
-        <p>Use esta calculadora para descobrir quantas peças de piso ou cerâmica você vai precisar para revestir sua área, evitando desperdícios e custos extras. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
-    </div>
-</section>
-
-<section id="calculadora" class="calculator">
-    <div class="container">
-        <h2>Calcule a quantidade de pisos</h2>
-        <div class="form-group">
-            <label>Comprimento do ambiente (metros):</label>
-            <input type="number" id="comprimento" placeholder="Ex: 5" min="0.1" step="0.1">
-        </div>
-        <div class="form-group">
-            <label>Largura do ambiente (metros):</label>
-            <input type="number" id="largura" placeholder="Ex: 4" min="0.1" step="0.1">
-        </div>
-        <div class="form-group">
-            <label>Tamanho da peça de piso (cm):</label>
-            <select id="tamanhoPiso" class="select-input">
-                <option value="20">20x20 cm</option>
-                <option value="30">30x30 cm</option>
-                <option value="40">40x40 cm</option>
-                <option value="45">45x45 cm</option>
-                <option value="50">50x50 cm</option>
-                <option value="60">60x60 cm</option>
-                <option value="80">80x80 cm</option>
-                <option value="custom">Tamanho personalizado</option>
-            </select>
-        </div>
-        <div class="form-group" id="customSize" style="display: none;">
-            <label>Dimensões personalizadas (cm):</label>
-            <input type="number" id="pisoComprimento" placeholder="Comprimento (cm)" min="1" step="1" style="width: 48%; display: inline-block;">
-            <input type="number" id="pisoLargura" placeholder="Largura (cm)" min="1" step="1" style="width: 48%; display: inline-block; margin-left: 4%;">
-        </div>
-        <button class="btn-primary" onclick="calcular()">Calcular Piso</button>
-        <div id="resultado"></div>
-    </div>
-</section>
-
-
-<section class="about">
-    <div class="container">
-        <h2>Como funciona o cálculo</h2>
-        <p>A calculadora determina a área total do ambiente (comprimento Ãƒ— largura) e calcula quantas peças de piso são necessárias baseado no tamanho escolhido. Inclui automaticamente 10% de margem para perdas, cortes e quebras.</p>
-
-        <h2>Fórmula utilizada</h2>
-        <ul>
-            <li><strong>Área total</strong> = comprimento Ãƒ— largura (em metros)</li>
-            <li><strong>Peças por m²</strong> depende do tamanho da peça (veja abaixo)</li>
-        </ul>
-        <ul>
-            <li>20x20 cm: 25 peças/m²</li>
-            <li>30x30 cm: 11 peças/m²</li>
-            <li>40x40 cm: 6,25 peças/m²</li>
-            <li>45x45 cm: 5 peças/m²</li>
-            <li>50x50 cm: 4 peças/m²</li>
-            <li>60x60 cm: 2,78 peças/m²</li>
-            <li>80x80 cm: 1,56 peças/m²</li>
-        </ul>
-
-        <h2>Exemplo prático de cálculo</h2>
-        <p>Para um ambiente de 5m x 4m (20m²) usando piso 60x60 cm:<br>
-        <strong>Quantidade</strong> = 20 Ãƒ— 2,78 = 55,6 peças<br>
-        Adicione 10% de margem: 55,6 Ãƒ— 1,1 ââ€°Ë† 62 peças</p>
-
-        <h2>Dicas para economizar</h2>
-        <ul>
-            <li>Sempre compre 10-15% a mais para cortes e quebras.</li>
-            <li>Para ambientes com muitos recortes, considere 15-20% de margem.</li>
-            <li>Guarde peças inteiras para reposição futura.</li>
-        </ul>
-
-        <h2>Perguntas frequentes (FAQ)</h2>
-        <p><strong>âÂâ€œ Quantas peças de piso 60x60 em 1 m²?</strong><br>
-        Aproximadamente 2,78 peças. Nossa calculadora faz esse cálculo automaticamente.</p>
-
-        <p><strong>âÂâ€œ Devo comprar peças extras?</strong><br>
-        Sim! A calculadora já adiciona 10% automaticamente. Para ambientes com muitos recortes, considere 15-20%.</p>
-
-        <p><strong>âÂâ€œ Como calcular piso retangular?</strong><br>
-        Selecione "Tamanho personalizado" e insira as dimensões exatas da peça.</p>
-
-        <p><strong>âÂâ€œ A calculadora serve para cerâmica de parede?</strong><br>
-        Sim! O cálculo é o mesmo para pisos e revestimentos de parede.</p>
-
-        <p><strong>âÂâ€œ Quanto de argamassa vou precisar?</strong><br>
-        Em média, 5kg de argamassa colante por m². Para um ambiente de 20m², você precisará de aproximadamente 100kg (2 sacos de 50kg).</p>
-
-        <h3>Veja também</h3>
-        <ul>
-            <li><a href="concreto">Calculadora de concreto</a></li>
-            <li><a href="tijolos">Calculadora de tijolos</a></li>
-            <li><a href="reboco">Calculadora de reboco</a></li>
-            <li><a href="argamassa-m2">Calculadora de argamassa</a></li>
-        </ul>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <p>Ã‚Â© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
-
-        <div class="footer-links">
-            <a href="../sobre">Sobre</a> |
-            <a href="../contato">Contato</a> |
-            <a href="../politica-de-privacidade">Política de Privacidade</a>
-        </div>
-    </div>
-</footer>
-
-<script src="../js/piso.js"></script>
-<script src="../js/script.js" defer></script>
-
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Piso: Quantidade de peças por m² para sua obra</title>
+<meta name="description" content="Descubra quantas peças de piso ou cerâmica você precisa por m². Veja fórmula, exemplo prático, dicas e evite desperdício!">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://calculadoradeobraonline.com.br/calculadoras/piso">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Calculadora de Obra Online">
+<meta property="og:title" content="Calculadora de Piso Online | Calculadora de Obra">
+<meta property="og:description" content="Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.">
+<meta property="og:url" content="https://calculadoradeobraonline.com.br/calculadoras/piso.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculadora de Piso Online | Calculadora de Obra">
+<meta name="twitter:description" content="Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Calculadora de Piso Online | Calculadora de Obra",
+    "url": "https://calculadoradeobraonline.com.br/calculadoras/piso.html",
+    "description": "Calcule quantas peças de piso ou cerâmica você precisa para revestir sua área. Inclui cálculo de rejunte e argamassa.",
+    "inLanguage": "pt-BR",
+    "isPartOf": {
+        "@type": "WebSite",
+        "name": "Calculadora de Obra Online",
+        "url": "https://calculadoradeobraonline.com.br/"
+    }
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WHNX7TFL');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHNX7TFL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo"><a href="../">Calculadora de Obra Online</a></h1>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+        </button>
+        <nav>
+            <a href="../">Início</a>
+            <a href="../index.html#calculadoras">Calculadoras</a>
+            <a href="../artigos/">Artigos</a>
+            <a href="../sobre">Sobre</a>
+            <a href="../contato">Contato</a>
+        </nav>
+    </div>
+</header>
+<div class="menu-overlay"></div>
+
+<section class="hero">
+    <div class="container">
+        <h1>Calculadora de piso: saiba quantas peças comprar por m²</h1>
+        <p>Use esta calculadora para descobrir quantas peças de piso ou cerâmica você vai precisar para revestir sua área, evitando desperdícios e custos extras. Veja também exemplos, dicas e links para outras calculadoras úteis ao final da página.</p>
+    </div>
+</section>
+
+<section id="calculadora" class="calculator">
+    <div class="container">
+        <h2>Calcule a quantidade de pisos</h2>
+        <div class="form-group">
+            <label>Comprimento do ambiente (metros):</label>
+            <input type="number" id="comprimento" placeholder="Ex: 5" min="0.1" step="0.1">
+        </div>
+        <div class="form-group">
+            <label>Largura do ambiente (metros):</label>
+            <input type="number" id="largura" placeholder="Ex: 4" min="0.1" step="0.1">
+        </div>
+        <div class="form-group">
+            <label>Tamanho da peça de piso (cm):</label>
+            <select id="tamanhoPiso" class="select-input">
+                <option value="20">20x20 cm</option>
+                <option value="30">30x30 cm</option>
+                <option value="40">40x40 cm</option>
+                <option value="45">45x45 cm</option>
+                <option value="50">50x50 cm</option>
+                <option value="60">60x60 cm</option>
+                <option value="80">80x80 cm</option>
+                <option value="custom">Tamanho personalizado</option>
+            </select>
+        </div>
+        <div class="form-group" id="customSize" style="display: none;">
+            <label>Dimensões personalizadas (cm):</label>
+            <input type="number" id="pisoComprimento" placeholder="Comprimento (cm)" min="1" step="1" style="width: 48%; display: inline-block;">
+            <input type="number" id="pisoLargura" placeholder="Largura (cm)" min="1" step="1" style="width: 48%; display: inline-block; margin-left: 4%;">
+        </div>
+        <button class="btn-primary" onclick="calcular()">Calcular Piso</button>
+        <div id="resultado"></div>
+    </div>
+</section>
+
+
+<section class="about">
+    <div class="container">
+        <h2>Como funciona o cálculo</h2>
+        <p>A calculadora determina a área total do ambiente (comprimento × largura) e calcula quantas peças de piso são necessárias baseado no tamanho escolhido. Inclui automaticamente 10% de margem para perdas, cortes e quebras.</p>
+
+        <h2>Fórmula utilizada</h2>
+        <ul>
+            <li><strong>Área total</strong> = comprimento × largura (em metros)</li>
+            <li><strong>Peças por m²</strong> depende do tamanho da peça (veja abaixo)</li>
+        </ul>
+        <ul>
+            <li>20x20 cm: 25 peças/m²</li>
+            <li>30x30 cm: 11 peças/m²</li>
+            <li>40x40 cm: 6,25 peças/m²</li>
+            <li>45x45 cm: 5 peças/m²</li>
+            <li>50x50 cm: 4 peças/m²</li>
+            <li>60x60 cm: 2,78 peças/m²</li>
+            <li>80x80 cm: 1,56 peças/m²</li>
+        </ul>
+
+        <h2>Exemplo prático de cálculo</h2>
+        <p>Para um ambiente de 5m x 4m (20m²) usando piso 60x60 cm:<br>
+        <strong>Quantidade</strong> = 20 × 2,78 = 55,6 peças<br>
+        Adicione 10% de margem: 55,6 × 1,1 ≈ 62 peças</p>
+
+        <h2>Dicas para economizar</h2>
+        <ul>
+            <li>Sempre compre 10-15% a mais para cortes e quebras.</li>
+            <li>Para ambientes com muitos recortes, considere 15-20% de margem.</li>
+            <li>Guarde peças inteiras para reposição futura.</li>
+        </ul>
+
+        <h2>Perguntas frequentes (FAQ)</h2>
+        <p><strong>• Quantas peças de piso 60x60 em 1 m²?</strong><br>
+        Aproximadamente 2,78 peças. Nossa calculadora faz esse cálculo automaticamente.</p>
+
+        <p><strong>• Devo comprar peças extras?</strong><br>
+        Sim! A calculadora já adiciona 10% automaticamente. Para ambientes com muitos recortes, considere 15-20%.</p>
+
+        <p><strong>• Como calcular piso retangular?</strong><br>
+        Selecione "Tamanho personalizado" e insira as dimensões exatas da peça.</p>
+
+        <p><strong>• A calculadora serve para cerâmica de parede?</strong><br>
+        Sim! O cálculo é o mesmo para pisos e revestimentos de parede.</p>
+
+        <p><strong>• Quanto de argamassa vou precisar?</strong><br>
+        Em média, 5kg de argamassa colante por m². Para um ambiente de 20m², você precisará de aproximadamente 100kg (2 sacos de 50kg).</p>
+
+        <h3>Veja também</h3>
+        <ul>
+            <li><a href="concreto">Calculadora de concreto</a></li>
+            <li><a href="tijolos">Calculadora de tijolos</a></li>
+            <li><a href="reboco">Calculadora de reboco</a></li>
+            <li><a href="argamassa-m2">Calculadora de argamassa</a></li>
+        </ul>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Calculadora de Obra Online - Todos os direitos reservados.</p>
+
+        <div class="footer-links">
+            <a href="../sobre">Sobre</a> |
+            <a href="../contato">Contato</a> |
+            <a href="../politica-de-privacidade">Política de Privacidade</a>
+        </div>
+    </div>
+</footer>
+
+<script src="../js/piso.js"></script>
+<script src="../js/script.js" defer></script>
+
+</body>
+</html>

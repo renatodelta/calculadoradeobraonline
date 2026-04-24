@@ -1,1313 +1,1313 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0f1117" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Monitor de Energia — Celular</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #222535;
-      --border: rgba(255,255,255,0.08);
-      --text: #e8eaf0;
-      --text-muted: #7b8099;
-      --green: #22c55e;
-      --green-glow: rgba(34,197,94,0.25);
-      --red: #ef4444;
-      --red-glow: rgba(239,68,68,0.25);
-      --amber: #f59e0b;
-      --amber-glow: rgba(245,158,11,0.25);
-      --blue: #3b82f6;
-      --blue-glow: rgba(59,130,246,0.25);
-      --purple: #8b5cf6;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-    }
-
-    /* Animated background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse at 20% 20%, rgba(59,130,246,0.06) 0%, transparent 50%),
-                  radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .app-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15,17,23,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .app-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .app-title .icon {
-      width: 38px;
-      height: 38px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .app-title h1 {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .app-title p {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .connection-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 500;
-      transition: all 0.3s;
-    }
-
-    .connection-badge .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--red);
-      animation: pulse-red 2s infinite;
-    }
-
-    .connection-badge.connected .dot {
-      background: var(--green);
-      animation: pulse-green 2s infinite;
-    }
-
-    .connection-badge.connected { border-color: rgba(34,197,94,0.3); }
-
-    @keyframes pulse-green {
-      0%, 100% { box-shadow: 0 0 0 0 var(--green-glow); }
-      50% { box-shadow: 0 0 0 4px transparent; }
-    }
-
-    @keyframes pulse-red {
-      0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
-      50% { box-shadow: 0 0 0 4px transparent; }
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 20px 16px;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* Battery Status Card */
-    .battery-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.5s;
-    }
-
-    .battery-card.charging {
-      border-color: rgba(34,197,94,0.4);
-      box-shadow: 0 0 40px var(--green-glow), inset 0 0 40px rgba(34,197,94,0.03);
-    }
-
-    .battery-card.discharging {
-      border-color: rgba(239,68,68,0.4);
-      box-shadow: 0 0 40px var(--red-glow), inset 0 0 40px rgba(239,68,68,0.03);
-    }
-
-    .battery-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      opacity: 0.05;
-      transition: all 0.5s;
-    }
-
-    .battery-card.charging::before { background: var(--green); }
-    .battery-card.discharging::before { background: var(--red); }
-
-    .battery-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .battery-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
-    }
-
-    .battery-status-text {
-      font-size: 26px;
-      font-weight: 700;
-      transition: color 0.5s;
-    }
-
-    .battery-status-text.charging { color: var(--green); }
-    .battery-status-text.discharging { color: var(--red); }
-    .battery-status-text.unknown { color: var(--text-muted); }
-
-    .battery-icon-wrap {
-      position: relative;
-    }
-
-    .battery-visual {
-      width: 56px;
-      height: 30px;
-      border: 2px solid currentColor;
-      border-radius: 6px;
-      position: relative;
-      transition: color 0.5s;
-    }
-
-    .battery-visual::after {
-      content: '';
-      position: absolute;
-      right: -6px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 12px;
-      background: currentColor;
-      border-radius: 0 3px 3px 0;
-    }
-
-    .battery-fill {
-      position: absolute;
-      left: 2px;
-      top: 2px;
-      bottom: 2px;
-      border-radius: 3px;
-      transition: width 1s ease, background 0.5s;
-    }
-
-    .battery-visual.charging { color: var(--green); }
-    .battery-visual.charging .battery-fill { background: var(--green); }
-    .battery-visual.discharging { color: var(--red); }
-    .battery-visual.discharging .battery-fill { background: var(--red); }
-    .battery-visual.unknown { color: var(--text-muted); }
-    .battery-visual.unknown .battery-fill { background: var(--text-muted); }
-
-    .lightning {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 14px;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .battery-card.charging .lightning { opacity: 1; }
-
-    .battery-percentage {
-      font-size: 13px;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 6px;
-      color: var(--text-muted);
-    }
-
-    .battery-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .battery-detail-item {
-      background: var(--surface2);
-      border-radius: 12px;
-      padding: 12px;
-    }
-
-    .detail-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
-    }
-
-    .detail-value {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    /* Info Chips */
-    .info-chips {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Camera Card */
-    .camera-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .camera-header {
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .camera-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .camera-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .toggle-label {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .toggle-switch {
-      position: relative;
-      width: 44px;
-      height: 24px;
-    }
-
-    .toggle-switch input { display: none; }
-
-    .toggle-slider {
-      position: absolute;
-      inset: 0;
-      background: var(--surface2);
-      border-radius: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 1px solid var(--border);
-    }
-
-    .toggle-slider::after {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background: var(--text-muted);
-      border-radius: 50%;
-      left: 2px;
-      top: 2px;
-      transition: all 0.3s;
-    }
-
-    .toggle-switch input:checked + .toggle-slider {
-      background: rgba(34,197,94,0.2);
-      border-color: var(--green);
-    }
-
-    .toggle-switch input:checked + .toggle-slider::after {
-      background: var(--green);
-      transform: translateX(20px);
-    }
-
-    .camera-body {
-      position: relative;
-    }
-
-    #cameraPreview {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      display: block;
-      background: var(--bg);
-    }
-
-    .camera-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: var(--text-muted);
-    }
-
-    .camera-placeholder .cam-icon {
-      font-size: 40px;
-      opacity: 0.3;
-    }
-
-    .camera-placeholder p {
-      font-size: 13px;
-    }
-
-    .camera-overlay {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--red);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .camera-overlay.live { color: var(--red); }
-    .camera-overlay .rec-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--red);
-      border-radius: 50%;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Events Log */
-    .log-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .log-header {
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .log-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .log-count {
-      background: var(--surface2);
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .btn-clear {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 11px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s;
-    }
-
-    .btn-clear:hover {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .log-list {
-      max-height: 300px;
-      overflow-y: auto;
-      padding: 8px 0;
-    }
-
-    .log-list::-webkit-scrollbar { width: 4px; }
-    .log-list::-webkit-scrollbar-track { background: transparent; }
-    .log-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-    .log-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .log-item:last-child { border-bottom: none; }
-
-    .log-event-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-
-    .log-event-icon.charging { background: var(--green-glow); }
-    .log-event-icon.discharging { background: var(--red-glow); }
-    .log-event-icon.info { background: var(--blue-glow); }
-
-    .log-event-text {
-      flex: 1;
-    }
-
-    .log-event-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .log-event-time {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .log-empty {
-      text-align: center;
-      padding: 32px 20px;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    /* Server URL Card */
-    .server-card {
-      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
-      border: 1px solid rgba(59,130,246,0.25);
-      border-radius: 20px;
-      padding: 16px 20px;
-    }
-
-    .server-card h3 {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .server-url-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .server-url-input {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      outline: none;
-    }
-
-    .server-url-input:focus { border-color: var(--blue); }
-
-    .btn-connect {
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-connect:hover { opacity: 0.9; transform: scale(0.98); }
-
-    .server-hint {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Bottom padding for safe area */
-    .bottom-spacer { height: 40px; }
-
-    /* Alert toast */
-    .toast {
-      position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 1000;
-      white-space: nowrap;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .toast.success { border-color: rgba(34,197,94,0.4); color: var(--green); }
-    .toast.error { border-color: rgba(239,68,68,0.4); color: var(--red); }
-    .toast.info { border-color: rgba(59,130,246,0.4); color: var(--blue); }
-
-    /* Pulse animation for charging */
-    .charging-pulse {
-      animation: chargePulse 2s ease-in-out infinite;
-    }
-
-    @keyframes chargePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-    }
-  </style>
-</head>
-<body>
-
-<header class="app-header">
-  <div class="app-title">
-    <div class="icon">âÅ¡Â¡</div>
-    <div>
-      <h1>Monitor de Energia</h1>
-      <p>Sensor do local</p>
-    </div>
-  </div>
-  <div class="connection-badge" id="connectionBadge">
-    <span class="dot"></span>
-    <span id="connectionText">Desconectado</span>
-  </div>
-</header>
-
-<main class="main-content">
-
-  <!-- Server Config -->
-  <div class="server-card">
-    <h3>Ã°Å¸Å’Â Servidor de Monitoramento</h3>
-    <div class="server-url-row">
-      <input type="text" class="server-url-input" id="serverUrl" 
-             placeholder="Ex: http://192.168.1.10/fab/app" 
-             value="" />
-      <button class="btn-connect" id="btnConnect" onclick="connectToServer()">Conectar</button>
-    </div>
-    <p class="server-hint">Digite o endereço IP do servidor onde está hospedado este app. Ex: <strong>http://192.168.1.10/fab/app</strong></p>
-  </div>
-
-  <!-- Battery Status -->
-  <div class="battery-card" id="batteryCard">
-    <div class="battery-header">
-      <div>
-        <div class="battery-label">Status da Energia</div>
-        <div class="battery-status-text unknown" id="batteryStatusText">Verificando...</div>
-      </div>
-      <div class="battery-icon-wrap">
-        <div class="battery-visual unknown" id="batteryVisual">
-          <div class="battery-fill" id="batteryFill" style="width: 50%"></div>
-          <span class="lightning">âÅ¡Â¡</span>
-        </div>
-        <div class="battery-percentage" id="batteryPct">--%</div>
-      </div>
-    </div>
-    <div class="battery-details">
-      <div class="battery-detail-item">
-        <div class="detail-label">Ãšltima troca</div>
-        <div class="detail-value" id="lastChange">--:--</div>
-      </div>
-      <div class="battery-detail-item">
-        <div class="detail-label">Eventos hoje</div>
-        <div class="detail-value" id="eventsToday">0</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Camera -->
-  <div class="camera-card">
-    <div class="camera-header">
-      <div class="camera-title">Ã°Å¸â€œÂ· Câmera ao Vivo</div>
-      <div class="camera-toggle">
-        <span class="toggle-label" id="cameraToggleLabel">Desligada</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="cameraToggle" onchange="toggleCamera()" />
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
-    <div class="camera-body">
-      <video id="cameraPreview" autoplay playsinline muted style="display:none;"></video>
-      <div class="camera-placeholder" id="cameraPlaceholder">
-        <div class="cam-icon">Ã°Å¸â€œÂ·</div>
-        <p>Câmera desligada</p>
-        <p style="font-size:11px; margin-top:4px;">Ative acima para transmitir</p>
-      </div>
-      <div class="camera-overlay live" id="liveTag" style="display:none;">
-        <span class="rec-dot"></span> AO VIVO
-      </div>
-    </div>
-  </div>
-
-  <!-- Event Log -->
-  <div class="log-card">
-    <div class="log-header">
-      <div class="log-title">Ã°Å¸â€œâ€¹ Histórico de Eventos</div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <span class="log-count" id="logCountBadge">0 eventos</span>
-        <button class="btn-clear" onclick="clearLog()">Limpar</button>
-      </div>
-    </div>
-    <div class="log-list" id="logList">
-      <div class="log-empty">Nenhum evento registrado ainda.</div>
-    </div>
-  </div>
-
-  <div class="bottom-spacer"></div>
-</main>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ==========================================
-// STATE
-// ==========================================
-let battery = null;
-let cameraStream = null;
-let serverUrl = localStorage.getItem('powerMonitorServer') || '';
-let isConnected = false;
-let pollInterval = null;
-let sessionId = 'mobile_' + Date.now();
-let events = JSON.parse(localStorage.getItem('powerEvents') || '[]');
-let lastCharging = null;
-
-const MAX_EVENTS = 200;
-
-// ==========================================
-// INIT
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  const savedUrl = localStorage.getItem('powerMonitorServer') || '';
-  document.getElementById('serverUrl').value = savedUrl;
-  if (savedUrl) serverUrl = savedUrl;
-
-  renderLog();
-  initBattery();
-
-  // Keep screen awake if supported
-  if ('wakeLock' in navigator) {
-    requestWakeLock();
-  }
-});
-
-// ==========================================
-// WAKE LOCK
-// ==========================================
-async function requestWakeLock() {
-  try {
-    await navigator.wakeLock.request('screen');
-  } catch(e) { /* silently fail */ }
-}
-
-// Register SW
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-
-// ==========================================
-// BATTERY API
-// ==========================================
-async function initBattery() {
-  if (!('getBattery' in navigator)) {
-    addEvent('info', 'API de bateria não suportada neste dispositivo.', null);
-    updateBatteryUI({ charging: null, level: null });
-    return;
-  }
-
-  try {
-    battery = await navigator.getBattery();
-    handleBatteryChange();
-
-    battery.addEventListener('chargingchange', () => {
-      handleBatteryChange();
-      const wasCharging = lastCharging;
-      const nowCharging = battery.charging;
-
-      if (wasCharging !== null && wasCharging !== nowCharging) {
-        if (nowCharging) {
-          addEvent('charging', 'âÅ¡Â¡ Energia voltou — carregando novamente', battery.level);
-          showToast('âÅ¡Â¡ Energia voltou!', 'success');
-          sendStatusToServer({ event: 'charging_start', level: battery.level });
-        } else {
-          addEvent('discharging', 'Ã°Å¸â€Â´ QUEDA DE ENERGIA — carregamento interrompido!', battery.level);
-          showToast('Ã°Å¸â€Â´ Queda de energia!', 'error');
-          sendStatusToServer({ event: 'power_outage', level: battery.level });
-        }
-      }
-      lastCharging = nowCharging;
-    });
-
-    battery.addEventListener('levelchange', () => {
-      updateBatteryUI({ charging: battery.charging, level: battery.level });
-      sendStatusToServer({ event: 'level_update', level: battery.level, charging: battery.charging });
-    });
-
-    // First status
-    lastCharging = battery.charging;
-    addEvent(battery.charging ? 'charging' : 'discharging',
-             battery.charging ? 'App iniciado — energia presente âÅ“…' : 'App iniciado — SEM energia na tomada âÅ¡Â Ã¯Â¸Â',
-             battery.level);
-    sendStatusToServer({ event: 'app_start', level: battery.level, charging: battery.charging });
-
-  } catch(e) {
-    addEvent('info', 'Erro ao acessar bateria: ' + e.message, null);
-  }
-}
-
-function handleBatteryChange() {
-  if (!battery) return;
-  updateBatteryUI({ charging: battery.charging, level: battery.level });
-}
-
-function updateBatteryUI({ charging, level }) {
-  const card = document.getElementById('batteryCard');
-  const statusText = document.getElementById('batteryStatusText');
-  const visual = document.getElementById('batteryVisual');
-  const fill = document.getElementById('batteryFill');
-  const pct = document.getElementById('batteryPct');
-
-  ['charging', 'discharging'].forEach(c => {
-    card.classList.remove(c);
-    statusText.classList.remove(c);
-    visual.classList.remove(c);
-  });
-
-  statusText.classList.remove('unknown');
-  visual.classList.remove('unknown');
-
-  if (charging === null) {
-    statusText.classList.add('unknown');
-    statusText.textContent = 'Indisponível';
-    visual.classList.add('unknown');
-  } else if (charging) {
-    card.classList.add('charging');
-    statusText.classList.add('charging');
-    statusText.textContent = 'âÅ“… Carregando';
-    visual.classList.add('charging');
-    card.classList.add('charging-pulse');
-  } else {
-    card.classList.add('discharging');
-    statusText.classList.add('discharging');
-    statusText.textContent = 'Ã°Å¸â€Â´ Sem Energia';
-    visual.classList.add('discharging');
-    card.classList.remove('charging-pulse');
-  }
-
-  if (level !== null) {
-    fill.style.width = (level * 100) + '%';
-    pct.textContent = Math.round(level * 100) + '%';
-  }
-}
-
-// ==========================================
-// EVENTS LOG
-// ==========================================
-function addEvent(type, message, batteryLevel) {
-  const now = new Date();
-  const event = {
-    id: Date.now(),
-    type,
-    message,
-    battery: batteryLevel !== null && batteryLevel !== undefined ? Math.round(batteryLevel * 100) : null,
-    time: now.toISOString(),
-    timeFormatted: now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-    dateFormatted: now.toLocaleDateString('pt-BR')
-  };
-
-  events.unshift(event);
-  if (events.length > MAX_EVENTS) events = events.slice(0, MAX_EVENTS);
-  localStorage.setItem('powerEvents', JSON.stringify(events));
-
-  // Update counter
-  const today = new Date().toLocaleDateString('pt-BR');
-  const todayEvents = events.filter(e => e.dateFormatted === today);
-  document.getElementById('eventsToday').textContent = todayEvents.length;
-  document.getElementById('lastChange').textContent = event.timeFormatted;
-
-  renderLog();
-}
-
-function renderLog() {
-  const list = document.getElementById('logList');
-  const badge = document.getElementById('logCountBadge');
-
-  badge.textContent = events.length + (events.length === 1 ? ' evento' : ' eventos');
-
-  if (events.length === 0) {
-    list.innerHTML = '<div class="log-empty">Nenhum evento registrado ainda.</div>';
-    return;
-  }
-
-  list.innerHTML = events.slice(0, 50).map(e => {
-    const icon = e.type === 'charging' ? 'âÅ¡Â¡' : e.type === 'discharging' ? 'Ã°Å¸â€Â´' : 'ââ€žÂ¹Ã¯Â¸Â';
-    const iconClass = e.type === 'charging' ? 'charging' : e.type === 'discharging' ? 'discharging' : 'info';
-    const battInfo = e.battery !== null ? ` • Bateria: ${e.battery}%` : '';
-    return `
-      <div class="log-item">
-        <div class="log-event-icon ${iconClass}">${icon}</div>
-        <div class="log-event-text">
-          <div class="log-event-title">${e.message}</div>
-          <div class="log-event-time">${e.dateFormatted} às ${e.timeFormatted}${battInfo}</div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function clearLog() {
-  events = [];
-  localStorage.setItem('powerEvents', JSON.stringify(events));
-  renderLog();
-}
-
-// ==========================================
-// CAMERA
-// ==========================================
-async function toggleCamera() {
-  const toggle = document.getElementById('cameraToggle');
-  const label = document.getElementById('cameraToggleLabel');
-
-  if (toggle.checked) {
-    label.textContent = 'Ligando...';
-    try {
-      cameraStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
-        audio: false
-      });
-      const video = document.getElementById('cameraPreview');
-      video.srcObject = cameraStream;
-      video.style.display = 'block';
-      document.getElementById('cameraPlaceholder').style.display = 'none';
-      document.getElementById('liveTag').style.display = 'flex';
-      label.textContent = 'Ao Vivo';
-      addEvent('info', 'Ã°Å¸â€œÂ· Câmera ativada para monitoramento remoto', battery ? battery.level : null);
-      showToast('Ã°Å¸â€œÂ· Câmera ligada', 'info');
-      
-      // Enviar snapshots constantes a cada 3 segundos
-      startLiveStream();
-    } catch(e) {
-      toggle.checked = false;
-      label.textContent = 'Desligada';
-      showToast('âÂÅ’ Sem permissão de câmera', 'error');
-    }
-  } else {
-    stopCamera();
-    label.textContent = 'Desligada';
-    addEvent('info', 'Ã°Å¸â€œÂ· Câmera desativada', battery ? battery.level : null);
-  }
-}
-
-let liveStreamInterval = null;
-function startLiveStream() {
-  if (liveStreamInterval) clearInterval(liveStreamInterval);
-  // Envia a primeira foto rápido
-  setTimeout(captureAndUploadSnapshot, 1000);
-  // Depois envia a cada 3 segundos
-  liveStreamInterval = setInterval(captureAndUploadSnapshot, 3000);
-}
-
-function stopCamera() {
-  if (liveStreamInterval) clearInterval(liveStreamInterval);
-  if (cameraStream) {
-    cameraStream.getTracks().forEach(t => t.stop());
-    cameraStream = null;
-  }
-  const video = document.getElementById('cameraPreview');
-  video.srcObject = null;
-  video.style.display = 'none';
-  document.getElementById('cameraPlaceholder').style.display = 'flex';
-  document.getElementById('liveTag').style.display = 'none';
-}
-
-// ==========================================
-// SERVER COMMUNICATION
-// ==========================================
-function connectToServer() {
-  const input = document.getElementById('serverUrl');
-  const url = input.value.trim().replace(/\/$/, '');
-  if (!url) { showToast('Digite o endereço do servidor', 'error'); return; }
-
-  serverUrl = url;
-  localStorage.setItem('powerMonitorServer', url);
-
-  // Test connection
-  fetch(url + '/api.php?action=ping')
-    .then(r => r.json())
-    .then(data => {
-      if (data.ok) {
-        setConnected(true);
-        showToast('âÅ“… Conectado ao servidor', 'success');
-        
-        // Ativar áudio após interação do usuário (clique no botão)
-        if (audioContext && audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-        
-        sendStatusToServer({ event: 'reconnect', level: battery ? battery.level : null, charging: battery ? battery.charging : null });
-        startPolling();
-      } else {
-        setConnected(false);
-        showToast('âÂÅ’ Servidor não respondeu', 'error');
-      }
-    })
-    .catch(() => {
-      setConnected(false);
-      showToast('âÂÅ’ Servidor inacessível', 'error');
-    });
-}
-
-function setConnected(state) {
-  isConnected = state;
-  const badge = document.getElementById('connectionBadge');
-  const text = document.getElementById('connectionText');
-  if (state) {
-    badge.classList.add('connected');
-    text.textContent = 'Conectado';
-  } else {
-    badge.classList.remove('connected');
-    text.textContent = 'Desconectado';
-  }
-}
-
-function sendStatusToServer(data) {
-  if (!serverUrl || !isConnected) return;
-  const payload = {
-    ...data,
-    sessionId,
-    timestamp: new Date().toISOString(),
-    charging: battery ? battery.charging : null,
-    level: battery ? Math.round(battery.level * 100) : null
-  };
-  fetch(serverUrl + '/api.php?action=update', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  }).catch(() => {
-    setConnected(false);
-  });
-}
-
-function startPolling() {
-  if (pollInterval) clearInterval(pollInterval);
-  // Heartbeat a cada 15s, mas checagem de câmera a cada 5s
-  pollInterval = setInterval(() => {
-    if (battery) {
-      sendStatusToServer({ event: 'heartbeat', level: battery.level, charging: battery.charging });
-    }
-  }, 15000);
-  
-  // Checagem mais rápida para comandos do painel
-  setInterval(checkCameraRequest, 5000);
-  
-  // Iniciar sensor de ruído
-  initNoiseSensor();
-  
-  // Checagem de WebRTC (Oferta de vídeo do painel)
-  setInterval(pollForWebRTCOffer, 4000);
-}
-
-// ==========================================
-// SENSOR DE RUÍDO E GRAVAÃ‡ÃƒO
-// ==========================================
-let audioContext = null;
-let analyser = null;
-let microphone = null;
-let javascriptNode = null;
-let isRecording = false;
-
-async function initNoiseSensor() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    audioContext = new AudioContext();
-    analyser = audioContext.createAnalyser();
-    microphone = audioContext.createMediaStreamSource(stream);
-    javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
-
-    analyser.smoothingTimeConstant = 0.8;
-    analyser.fftSize = 1024;
-
-    microphone.connect(analyser);
-    analyser.connect(javascriptNode);
-    javascriptNode.connect(audioContext.destination);
-
-    javascriptNode.onaudioprocess = () => {
-      const array = new Uint8Array(analyser.frequencyBinCount);
-      analyser.getByteFrequencyData(array);
-      let values = 0;
-      for (let i = 0; i < array.length; i++) values += array[i];
-      const average = values / array.length;
-      
-      // Se o volume médio for alto (> 40 - baixei um pouco a sensibilidade)
-      if (average > 40 && !isRecording) {
-        console.log("Barulho alto detectado! Gravando...");
-        recordAudio(7000, "Ruído detectado"); // Grava 7 segundos
-      }
-    };
-  } catch (e) {
-    console.warn("Sem permissão de microfone ou erro no áudio", e);
-  }
-}
-
-async function recordAudio(duration = 10000, reason = "Gravação solicitada") {
-  if (isRecording) return;
-  isRecording = true;
-  showToast("Ã°Å¸Å½â„¢Ã¯Â¸Â Gravando áudio...", "info");
-
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  const mediaRecorder = new MediaRecorder(stream);
-  const audioChunks = [];
-
-  mediaRecorder.ondataavailable = (event) => audioChunks.push(event.data);
-  
-  mediaRecorder.onstop = async () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-    const formData = new FormData();
-    formData.append('audio', audioBlob);
-
-    fetch(serverUrl + '/api.php?action=upload_audio', { method: 'POST', body: formData })
-      .then(() => {
-        // Logar o evento de áudio enviado no servidor
-        const logPayload = {
-           event: 'audio_alert',
-           message: 'Ã°Å¸Å½â„¢Ã¯Â¸Â Áudio enviado: ' + reason,
-           battery: battery ? Math.round(battery.level * 100) : null
-        };
-        fetch(serverUrl + '/api.php?action=log', {
-           method: 'POST',
-           headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify(logPayload)
-        });
-        
-        showToast("Ã°Å¸Å½â„¢Ã¯Â¸Â Áudio enviado!", "success");
-        isRecording = false;
-      });
-  };
-
-  mediaRecorder.start();
-  setTimeout(() => mediaRecorder.stop(), duration);
-}
-
-// ==========================================
-// COMMAND POLLING
-// ==========================================
-
-// Poll server to check if dashboard requested camera or audio
-function checkCameraRequest() {
-  if (!serverUrl || !isConnected) return;
-  fetch(serverUrl + '/api.php?action=check_camera_request')
-    .then(r => r.json())
-    .then(data => {
-      if (data.requested) {
-        console.log('Painel pediu foto!');
-        captureAndUploadSnapshot();
-      }
-      if (data.audio_requested) {
-        console.log('Painel pediu áudio!');
-        recordAudio(10000, "Solicitado pelo painel");
-      }
-    }).catch(() => {});
-}
-
-async function pollForWebRTCOffer() {
-  if (!serverUrl || !isConnected) return;
-  if (!cameraStream) return; 
-  if (pc && pc.connectionState === 'connected') return;
-
-  fetch(serverUrl + '/api.php?action=pull_signal&type=offer')
-    .then(r => r.json())
-    .then(async data => {
-      if (data.ok && data.data && data.data.sdp) {
-        console.log('Recebida oferta WebRTC do painel!');
-        await establishWebRTC(data.data);
-      }
-    });
-}
-
-async function establishWebRTC(offer) {
-  pc = new RTCPeerConnection({
-    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-  });
-
-  // Adicionar trilhas da câmera
-  cameraStream.getTracks().forEach(track => pc.addTrack(track, cameraStream));
-
-  pc.onicecandidate = (event) => {
-    if (event.candidate) {
-      // Envia candidatos ICE para o servidor
-      fetch(serverUrl + '/api.php?action=push_signal&type=ice_mobile', {
-        method: 'POST', body: JSON.stringify(event.candidate)
-      });
-    }
-  };
-
-  await pc.setRemoteDescription(new RTCSessionDescription(offer));
-  const answer = await pc.createAnswer();
-  await pc.setLocalDescription(answer);
-
-  // Enviar a resposta (Answer) para o painel
-  fetch(serverUrl + '/api.php?action=push_signal&type=answer', {
-    method: 'POST', body: JSON.stringify(answer)
-  });
-  
-  // Buscar candidatos ICE que o painel enviou
-  const iceCheck = setInterval(() => {
-    if (!pc || pc.connectionState === 'closed') { clearInterval(iceCheck); return; }
-    fetch(serverUrl + '/api.php?action=pull_signal&type=ice_dash')
-      .then(r => r.json())
-      .then(data => {
-        if (data.ok) pc.addIceCandidate(new RTCIceCandidate(data.data));
-      });
-  }, 3000);
-  
-  showToast('Ã°Å¸Å½Â¥ Stream de vídeo iniciado!', 'success');
-}
-
-// ==========================================
-// SNAPSHOT UPLOAD
-// ==========================================
-async function captureAndUploadSnapshot() {
-  if (!cameraStream) return;
-  const video = document.getElementById('cameraPreview');
-  const canvas = document.createElement('canvas');
-  canvas.width = video.videoWidth || 1280;
-  canvas.height = video.videoHeight || 720;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  const base64 = canvas.toDataURL('image/jpeg', 0.85);
-
-  if (!serverUrl || !isConnected) return;
-  fetch(serverUrl + '/api.php?action=upload_snapshot', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ image: base64, sessionId })
-  }).then(() => {
-    showToast('Ã°Å¸â€œÂ¸ Foto enviada ao painel', 'success');
-  }).catch(() => {
-    showToast('âÂÅ’ Erro ao enviar foto', 'error');
-  });
-}
-
-
-
-// ==========================================
-// TOAST
-// ==========================================
-let toastTimeout;
-function showToast(msg, type = 'info') {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.className = 'toast show ' + type;
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    toast.className = 'toast';
-  }, 3500);
-}
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f1117" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Monitor de Energia — Celular</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #222535;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8eaf0;
+      --text-muted: #7b8099;
+      --green: #22c55e;
+      --green-glow: rgba(34,197,94,0.25);
+      --red: #ef4444;
+      --red-glow: rgba(239,68,68,0.25);
+      --amber: #f59e0b;
+      --amber-glow: rgba(245,158,11,0.25);
+      --blue: #3b82f6;
+      --blue-glow: rgba(59,130,246,0.25);
+      --purple: #8b5cf6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 20%, rgba(59,130,246,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .app-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-title .icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .app-title h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .app-title p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .connection-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .connection-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse-red 2s infinite;
+    }
+
+    .connection-badge.connected .dot {
+      background: var(--green);
+      animation: pulse-green 2s infinite;
+    }
+
+    .connection-badge.connected { border-color: rgba(34,197,94,0.3); }
+
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 var(--green-glow); }
+      50% { box-shadow: 0 0 0 4px transparent; }
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
+      50% { box-shadow: 0 0 0 4px transparent; }
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px 16px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Battery Status Card */
+    .battery-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s;
+    }
+
+    .battery-card.charging {
+      border-color: rgba(34,197,94,0.4);
+      box-shadow: 0 0 40px var(--green-glow), inset 0 0 40px rgba(34,197,94,0.03);
+    }
+
+    .battery-card.discharging {
+      border-color: rgba(239,68,68,0.4);
+      box-shadow: 0 0 40px var(--red-glow), inset 0 0 40px rgba(239,68,68,0.03);
+    }
+
+    .battery-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      opacity: 0.05;
+      transition: all 0.5s;
+    }
+
+    .battery-card.charging::before { background: var(--green); }
+    .battery-card.discharging::before { background: var(--red); }
+
+    .battery-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .battery-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .battery-status-text {
+      font-size: 26px;
+      font-weight: 700;
+      transition: color 0.5s;
+    }
+
+    .battery-status-text.charging { color: var(--green); }
+    .battery-status-text.discharging { color: var(--red); }
+    .battery-status-text.unknown { color: var(--text-muted); }
+
+    .battery-icon-wrap {
+      position: relative;
+    }
+
+    .battery-visual {
+      width: 56px;
+      height: 30px;
+      border: 2px solid currentColor;
+      border-radius: 6px;
+      position: relative;
+      transition: color 0.5s;
+    }
+
+    .battery-visual::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 12px;
+      background: currentColor;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .battery-fill {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      bottom: 2px;
+      border-radius: 3px;
+      transition: width 1s ease, background 0.5s;
+    }
+
+    .battery-visual.charging { color: var(--green); }
+    .battery-visual.charging .battery-fill { background: var(--green); }
+    .battery-visual.discharging { color: var(--red); }
+    .battery-visual.discharging .battery-fill { background: var(--red); }
+    .battery-visual.unknown { color: var(--text-muted); }
+    .battery-visual.unknown .battery-fill { background: var(--text-muted); }
+
+    .lightning {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .battery-card.charging .lightning { opacity: 1; }
+
+    .battery-percentage {
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 6px;
+      color: var(--text-muted);
+    }
+
+    .battery-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .battery-detail-item {
+      background: var(--surface2);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Info Chips */
+    .info-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Camera Card */
+    .camera-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .camera-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .camera-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .camera-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle-switch input { display: none; }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--surface2);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid var(--border);
+    }
+
+    .toggle-slider::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      left: 2px;
+      top: 2px;
+      transition: all 0.3s;
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: rgba(34,197,94,0.2);
+      border-color: var(--green);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::after {
+      background: var(--green);
+      transform: translateX(20px);
+    }
+
+    .camera-body {
+      position: relative;
+    }
+
+    #cameraPreview {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+
+    .camera-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .camera-placeholder .cam-icon {
+      font-size: 40px;
+      opacity: 0.3;
+    }
+
+    .camera-placeholder p {
+      font-size: 13px;
+    }
+
+    .camera-overlay {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .camera-overlay.live { color: var(--red); }
+    .camera-overlay .rec-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Events Log */
+    .log-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .log-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .log-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .log-count {
+      background: var(--surface2);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .btn-clear {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .btn-clear:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .log-list {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+
+    .log-list::-webkit-scrollbar { width: 4px; }
+    .log-list::-webkit-scrollbar-track { background: transparent; }
+    .log-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .log-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .log-item:last-child { border-bottom: none; }
+
+    .log-event-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .log-event-icon.charging { background: var(--green-glow); }
+    .log-event-icon.discharging { background: var(--red-glow); }
+    .log-event-icon.info { background: var(--blue-glow); }
+
+    .log-event-text {
+      flex: 1;
+    }
+
+    .log-event-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .log-event-time {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .log-empty {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Server URL Card */
+    .server-card {
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 20px;
+      padding: 16px 20px;
+    }
+
+    .server-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .server-url-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .server-url-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+
+    .server-url-input:focus { border-color: var(--blue); }
+
+    .btn-connect {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-connect:hover { opacity: 0.9; transform: scale(0.98); }
+
+    .server-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Bottom padding for safe area */
+    .bottom-spacer { height: 40px; }
+
+    /* Alert toast */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast.success { border-color: rgba(34,197,94,0.4); color: var(--green); }
+    .toast.error { border-color: rgba(239,68,68,0.4); color: var(--red); }
+    .toast.info { border-color: rgba(59,130,246,0.4); color: var(--blue); }
+
+    /* Pulse animation for charging */
+    .charging-pulse {
+      animation: chargePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes chargePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-title">
+    <div class="icon">âÅ¡Â¡</div>
+    <div>
+      <h1>Monitor de Energia</h1>
+      <p>Sensor do local</p>
+    </div>
+  </div>
+  <div class="connection-badge" id="connectionBadge">
+    <span class="dot"></span>
+    <span id="connectionText">Desconectado</span>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <!-- Server Config -->
+  <div class="server-card">
+    <h3>Ã°Å¸Å’Â Servidor de Monitoramento</h3>
+    <div class="server-url-row">
+      <input type="text" class="server-url-input" id="serverUrl" 
+             placeholder="Ex: http://192.168.1.10/fab/app" 
+             value="" />
+      <button class="btn-connect" id="btnConnect" onclick="connectToServer()">Conectar</button>
+    </div>
+    <p class="server-hint">Digite o endereço IP do servidor onde está hospedado este app. Ex: <strong>http://192.168.1.10/fab/app</strong></p>
+  </div>
+
+  <!-- Battery Status -->
+  <div class="battery-card" id="batteryCard">
+    <div class="battery-header">
+      <div>
+        <div class="battery-label">Status da Energia</div>
+        <div class="battery-status-text unknown" id="batteryStatusText">Verificando...</div>
+      </div>
+      <div class="battery-icon-wrap">
+        <div class="battery-visual unknown" id="batteryVisual">
+          <div class="battery-fill" id="batteryFill" style="width: 50%"></div>
+          <span class="lightning">âÅ¡Â¡</span>
+        </div>
+        <div class="battery-percentage" id="batteryPct">--%</div>
+      </div>
+    </div>
+    <div class="battery-details">
+      <div class="battery-detail-item">
+        <div class="detail-label">Última troca</div>
+        <div class="detail-value" id="lastChange">--:--</div>
+      </div>
+      <div class="battery-detail-item">
+        <div class="detail-label">Eventos hoje</div>
+        <div class="detail-value" id="eventsToday">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camera -->
+  <div class="camera-card">
+    <div class="camera-header">
+      <div class="camera-title">📷 Câmera ao Vivo</div>
+      <div class="camera-toggle">
+        <span class="toggle-label" id="cameraToggleLabel">Desligada</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="cameraToggle" onchange="toggleCamera()" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="camera-body">
+      <video id="cameraPreview" autoplay playsinline muted style="display:none;"></video>
+      <div class="camera-placeholder" id="cameraPlaceholder">
+        <div class="cam-icon">📷</div>
+        <p>Câmera desligada</p>
+        <p style="font-size:11px; margin-top:4px;">Ative acima para transmitir</p>
+      </div>
+      <div class="camera-overlay live" id="liveTag" style="display:none;">
+        <span class="rec-dot"></span> AO VIVO
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Log -->
+  <div class="log-card">
+    <div class="log-header">
+      <div class="log-title">Ã°Å¸â€œâ€¹ Histórico de Eventos</div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="log-count" id="logCountBadge">0 eventos</span>
+        <button class="btn-clear" onclick="clearLog()">Limpar</button>
+      </div>
+    </div>
+    <div class="log-list" id="logList">
+      <div class="log-empty">Nenhum evento registrado ainda.</div>
+    </div>
+  </div>
+
+  <div class="bottom-spacer"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==========================================
+// STATE
+// ==========================================
+let battery = null;
+let cameraStream = null;
+let serverUrl = localStorage.getItem('powerMonitorServer') || '';
+let isConnected = false;
+let pollInterval = null;
+let sessionId = 'mobile_' + Date.now();
+let events = JSON.parse(localStorage.getItem('powerEvents') || '[]');
+let lastCharging = null;
+
+const MAX_EVENTS = 200;
+
+// ==========================================
+// INIT
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const savedUrl = localStorage.getItem('powerMonitorServer') || '';
+  document.getElementById('serverUrl').value = savedUrl;
+  if (savedUrl) serverUrl = savedUrl;
+
+  renderLog();
+  initBattery();
+
+  // Keep screen awake if supported
+  if ('wakeLock' in navigator) {
+    requestWakeLock();
+  }
+});
+
+// ==========================================
+// WAKE LOCK
+// ==========================================
+async function requestWakeLock() {
+  try {
+    await navigator.wakeLock.request('screen');
+  } catch(e) { /* silently fail */ }
+}
+
+// Register SW
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
+// ==========================================
+// BATTERY API
+// ==========================================
+async function initBattery() {
+  if (!('getBattery' in navigator)) {
+    addEvent('info', 'API de bateria não suportada neste dispositivo.', null);
+    updateBatteryUI({ charging: null, level: null });
+    return;
+  }
+
+  try {
+    battery = await navigator.getBattery();
+    handleBatteryChange();
+
+    battery.addEventListener('chargingchange', () => {
+      handleBatteryChange();
+      const wasCharging = lastCharging;
+      const nowCharging = battery.charging;
+
+      if (wasCharging !== null && wasCharging !== nowCharging) {
+        if (nowCharging) {
+          addEvent('charging', 'âÅ¡Â¡ Energia voltou — carregando novamente', battery.level);
+          showToast('âÅ¡Â¡ Energia voltou!', 'success');
+          sendStatusToServer({ event: 'charging_start', level: battery.level });
+        } else {
+          addEvent('discharging', 'Ã°Å¸â€Â´ QUEDA DE ENERGIA — carregamento interrompido!', battery.level);
+          showToast('Ã°Å¸â€Â´ Queda de energia!', 'error');
+          sendStatusToServer({ event: 'power_outage', level: battery.level });
+        }
+      }
+      lastCharging = nowCharging;
+    });
+
+    battery.addEventListener('levelchange', () => {
+      updateBatteryUI({ charging: battery.charging, level: battery.level });
+      sendStatusToServer({ event: 'level_update', level: battery.level, charging: battery.charging });
+    });
+
+    // First status
+    lastCharging = battery.charging;
+    addEvent(battery.charging ? 'charging' : 'discharging',
+             battery.charging ? 'App iniciado — energia presente âÅ“…' : 'App iniciado — SEM energia na tomada âÅ¡Â Ã¯Â¸Â',
+             battery.level);
+    sendStatusToServer({ event: 'app_start', level: battery.level, charging: battery.charging });
+
+  } catch(e) {
+    addEvent('info', 'Erro ao acessar bateria: ' + e.message, null);
+  }
+}
+
+function handleBatteryChange() {
+  if (!battery) return;
+  updateBatteryUI({ charging: battery.charging, level: battery.level });
+}
+
+function updateBatteryUI({ charging, level }) {
+  const card = document.getElementById('batteryCard');
+  const statusText = document.getElementById('batteryStatusText');
+  const visual = document.getElementById('batteryVisual');
+  const fill = document.getElementById('batteryFill');
+  const pct = document.getElementById('batteryPct');
+
+  ['charging', 'discharging'].forEach(c => {
+    card.classList.remove(c);
+    statusText.classList.remove(c);
+    visual.classList.remove(c);
+  });
+
+  statusText.classList.remove('unknown');
+  visual.classList.remove('unknown');
+
+  if (charging === null) {
+    statusText.classList.add('unknown');
+    statusText.textContent = 'Indisponível';
+    visual.classList.add('unknown');
+  } else if (charging) {
+    card.classList.add('charging');
+    statusText.classList.add('charging');
+    statusText.textContent = 'âÅ“… Carregando';
+    visual.classList.add('charging');
+    card.classList.add('charging-pulse');
+  } else {
+    card.classList.add('discharging');
+    statusText.classList.add('discharging');
+    statusText.textContent = 'Ã°Å¸â€Â´ Sem Energia';
+    visual.classList.add('discharging');
+    card.classList.remove('charging-pulse');
+  }
+
+  if (level !== null) {
+    fill.style.width = (level * 100) + '%';
+    pct.textContent = Math.round(level * 100) + '%';
+  }
+}
+
+// ==========================================
+// EVENTS LOG
+// ==========================================
+function addEvent(type, message, batteryLevel) {
+  const now = new Date();
+  const event = {
+    id: Date.now(),
+    type,
+    message,
+    battery: batteryLevel !== null && batteryLevel !== undefined ? Math.round(batteryLevel * 100) : null,
+    time: now.toISOString(),
+    timeFormatted: now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+    dateFormatted: now.toLocaleDateString('pt-BR')
+  };
+
+  events.unshift(event);
+  if (events.length > MAX_EVENTS) events = events.slice(0, MAX_EVENTS);
+  localStorage.setItem('powerEvents', JSON.stringify(events));
+
+  // Update counter
+  const today = new Date().toLocaleDateString('pt-BR');
+  const todayEvents = events.filter(e => e.dateFormatted === today);
+  document.getElementById('eventsToday').textContent = todayEvents.length;
+  document.getElementById('lastChange').textContent = event.timeFormatted;
+
+  renderLog();
+}
+
+function renderLog() {
+  const list = document.getElementById('logList');
+  const badge = document.getElementById('logCountBadge');
+
+  badge.textContent = events.length + (events.length === 1 ? ' evento' : ' eventos');
+
+  if (events.length === 0) {
+    list.innerHTML = '<div class="log-empty">Nenhum evento registrado ainda.</div>';
+    return;
+  }
+
+  list.innerHTML = events.slice(0, 50).map(e => {
+    const icon = e.type === 'charging' ? 'âÅ¡Â¡' : e.type === 'discharging' ? 'Ã°Å¸â€Â´' : 'ââ€žÂ¹Ã¯Â¸Â';
+    const iconClass = e.type === 'charging' ? 'charging' : e.type === 'discharging' ? 'discharging' : 'info';
+    const battInfo = e.battery !== null ? ` • Bateria: ${e.battery}%` : '';
+    return `
+      <div class="log-item">
+        <div class="log-event-icon ${iconClass}">${icon}</div>
+        <div class="log-event-text">
+          <div class="log-event-title">${e.message}</div>
+          <div class="log-event-time">${e.dateFormatted} às ${e.timeFormatted}${battInfo}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function clearLog() {
+  events = [];
+  localStorage.setItem('powerEvents', JSON.stringify(events));
+  renderLog();
+}
+
+// ==========================================
+// CAMERA
+// ==========================================
+async function toggleCamera() {
+  const toggle = document.getElementById('cameraToggle');
+  const label = document.getElementById('cameraToggleLabel');
+
+  if (toggle.checked) {
+    label.textContent = 'Ligando...';
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      const video = document.getElementById('cameraPreview');
+      video.srcObject = cameraStream;
+      video.style.display = 'block';
+      document.getElementById('cameraPlaceholder').style.display = 'none';
+      document.getElementById('liveTag').style.display = 'flex';
+      label.textContent = 'Ao Vivo';
+      addEvent('info', '📷 Câmera ativada para monitoramento remoto', battery ? battery.level : null);
+      showToast('📷 Câmera ligada', 'info');
+      
+      // Enviar snapshots constantes a cada 3 segundos
+      startLiveStream();
+    } catch(e) {
+      toggle.checked = false;
+      label.textContent = 'Desligada';
+      showToast('âÂÅ’ Sem permissão de câmera', 'error');
+    }
+  } else {
+    stopCamera();
+    label.textContent = 'Desligada';
+    addEvent('info', '📷 Câmera desativada', battery ? battery.level : null);
+  }
+}
+
+let liveStreamInterval = null;
+function startLiveStream() {
+  if (liveStreamInterval) clearInterval(liveStreamInterval);
+  // Envia a primeira foto rápido
+  setTimeout(captureAndUploadSnapshot, 1000);
+  // Depois envia a cada 3 segundos
+  liveStreamInterval = setInterval(captureAndUploadSnapshot, 3000);
+}
+
+function stopCamera() {
+  if (liveStreamInterval) clearInterval(liveStreamInterval);
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(t => t.stop());
+    cameraStream = null;
+  }
+  const video = document.getElementById('cameraPreview');
+  video.srcObject = null;
+  video.style.display = 'none';
+  document.getElementById('cameraPlaceholder').style.display = 'flex';
+  document.getElementById('liveTag').style.display = 'none';
+}
+
+// ==========================================
+// SERVER COMMUNICATION
+// ==========================================
+function connectToServer() {
+  const input = document.getElementById('serverUrl');
+  const url = input.value.trim().replace(/\/$/, '');
+  if (!url) { showToast('Digite o endereço do servidor', 'error'); return; }
+
+  serverUrl = url;
+  localStorage.setItem('powerMonitorServer', url);
+
+  // Test connection
+  fetch(url + '/api.php?action=ping')
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        setConnected(true);
+        showToast('âÅ“… Conectado ao servidor', 'success');
+        
+        // Ativar áudio após interação do usuário (clique no botão)
+        if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+        
+        sendStatusToServer({ event: 'reconnect', level: battery ? battery.level : null, charging: battery ? battery.charging : null });
+        startPolling();
+      } else {
+        setConnected(false);
+        showToast('âÂÅ’ Servidor não respondeu', 'error');
+      }
+    })
+    .catch(() => {
+      setConnected(false);
+      showToast('âÂÅ’ Servidor inacessível', 'error');
+    });
+}
+
+function setConnected(state) {
+  isConnected = state;
+  const badge = document.getElementById('connectionBadge');
+  const text = document.getElementById('connectionText');
+  if (state) {
+    badge.classList.add('connected');
+    text.textContent = 'Conectado';
+  } else {
+    badge.classList.remove('connected');
+    text.textContent = 'Desconectado';
+  }
+}
+
+function sendStatusToServer(data) {
+  if (!serverUrl || !isConnected) return;
+  const payload = {
+    ...data,
+    sessionId,
+    timestamp: new Date().toISOString(),
+    charging: battery ? battery.charging : null,
+    level: battery ? Math.round(battery.level * 100) : null
+  };
+  fetch(serverUrl + '/api.php?action=update', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {
+    setConnected(false);
+  });
+}
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  // Heartbeat a cada 15s, mas checagem de câmera a cada 5s
+  pollInterval = setInterval(() => {
+    if (battery) {
+      sendStatusToServer({ event: 'heartbeat', level: battery.level, charging: battery.charging });
+    }
+  }, 15000);
+  
+  // Checagem mais rápida para comandos do painel
+  setInterval(checkCameraRequest, 5000);
+  
+  // Iniciar sensor de ruído
+  initNoiseSensor();
+  
+  // Checagem de WebRTC (Oferta de vídeo do painel)
+  setInterval(pollForWebRTCOffer, 4000);
+}
+
+// ==========================================
+// SENSOR DE RUÍDO E GRAVAÃ‡ÃƒO
+// ==========================================
+let audioContext = null;
+let analyser = null;
+let microphone = null;
+let javascriptNode = null;
+let isRecording = false;
+
+async function initNoiseSensor() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioContext = new AudioContext();
+    analyser = audioContext.createAnalyser();
+    microphone = audioContext.createMediaStreamSource(stream);
+    javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+    analyser.smoothingTimeConstant = 0.8;
+    analyser.fftSize = 1024;
+
+    microphone.connect(analyser);
+    analyser.connect(javascriptNode);
+    javascriptNode.connect(audioContext.destination);
+
+    javascriptNode.onaudioprocess = () => {
+      const array = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(array);
+      let values = 0;
+      for (let i = 0; i < array.length; i++) values += array[i];
+      const average = values / array.length;
+      
+      // Se o volume médio for alto (> 40 - baixei um pouco a sensibilidade)
+      if (average > 40 && !isRecording) {
+        console.log("Barulho alto detectado! Gravando...");
+        recordAudio(7000, "Ruído detectado"); // Grava 7 segundos
+      }
+    };
+  } catch (e) {
+    console.warn("Sem permissão de microfone ou erro no áudio", e);
+  }
+}
+
+async function recordAudio(duration = 10000, reason = "Gravação solicitada") {
+  if (isRecording) return;
+  isRecording = true;
+  showToast("Ã°Å¸Å½â„¢Ã¯Â¸Â Gravando áudio...", "info");
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const mediaRecorder = new MediaRecorder(stream);
+  const audioChunks = [];
+
+  mediaRecorder.ondataavailable = (event) => audioChunks.push(event.data);
+  
+  mediaRecorder.onstop = async () => {
+    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+    const formData = new FormData();
+    formData.append('audio', audioBlob);
+
+    fetch(serverUrl + '/api.php?action=upload_audio', { method: 'POST', body: formData })
+      .then(() => {
+        // Logar o evento de áudio enviado no servidor
+        const logPayload = {
+           event: 'audio_alert',
+           message: 'Ã°Å¸Å½â„¢Ã¯Â¸Â Áudio enviado: ' + reason,
+           battery: battery ? Math.round(battery.level * 100) : null
+        };
+        fetch(serverUrl + '/api.php?action=log', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify(logPayload)
+        });
+        
+        showToast("Ã°Å¸Å½â„¢Ã¯Â¸Â Áudio enviado!", "success");
+        isRecording = false;
+      });
+  };
+
+  mediaRecorder.start();
+  setTimeout(() => mediaRecorder.stop(), duration);
+}
+
+// ==========================================
+// COMMAND POLLING
+// ==========================================
+
+// Poll server to check if dashboard requested camera or audio
+function checkCameraRequest() {
+  if (!serverUrl || !isConnected) return;
+  fetch(serverUrl + '/api.php?action=check_camera_request')
+    .then(r => r.json())
+    .then(data => {
+      if (data.requested) {
+        console.log('Painel pediu foto!');
+        captureAndUploadSnapshot();
+      }
+      if (data.audio_requested) {
+        console.log('Painel pediu áudio!');
+        recordAudio(10000, "Solicitado pelo painel");
+      }
+    }).catch(() => {});
+}
+
+async function pollForWebRTCOffer() {
+  if (!serverUrl || !isConnected) return;
+  if (!cameraStream) return; 
+  if (pc && pc.connectionState === 'connected') return;
+
+  fetch(serverUrl + '/api.php?action=pull_signal&type=offer')
+    .then(r => r.json())
+    .then(async data => {
+      if (data.ok && data.data && data.data.sdp) {
+        console.log('Recebida oferta WebRTC do painel!');
+        await establishWebRTC(data.data);
+      }
+    });
+}
+
+async function establishWebRTC(offer) {
+  pc = new RTCPeerConnection({
+    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+  });
+
+  // Adicionar trilhas da câmera
+  cameraStream.getTracks().forEach(track => pc.addTrack(track, cameraStream));
+
+  pc.onicecandidate = (event) => {
+    if (event.candidate) {
+      // Envia candidatos ICE para o servidor
+      fetch(serverUrl + '/api.php?action=push_signal&type=ice_mobile', {
+        method: 'POST', body: JSON.stringify(event.candidate)
+      });
+    }
+  };
+
+  await pc.setRemoteDescription(new RTCSessionDescription(offer));
+  const answer = await pc.createAnswer();
+  await pc.setLocalDescription(answer);
+
+  // Enviar a resposta (Answer) para o painel
+  fetch(serverUrl + '/api.php?action=push_signal&type=answer', {
+    method: 'POST', body: JSON.stringify(answer)
+  });
+  
+  // Buscar candidatos ICE que o painel enviou
+  const iceCheck = setInterval(() => {
+    if (!pc || pc.connectionState === 'closed') { clearInterval(iceCheck); return; }
+    fetch(serverUrl + '/api.php?action=pull_signal&type=ice_dash')
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) pc.addIceCandidate(new RTCIceCandidate(data.data));
+      });
+  }, 3000);
+  
+  showToast('Ã°Å¸Å½Â¥ Stream de vídeo iniciado!', 'success');
+}
+
+// ==========================================
+// SNAPSHOT UPLOAD
+// ==========================================
+async function captureAndUploadSnapshot() {
+  if (!cameraStream) return;
+  const video = document.getElementById('cameraPreview');
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth || 1280;
+  canvas.height = video.videoHeight || 720;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const base64 = canvas.toDataURL('image/jpeg', 0.85);
+
+  if (!serverUrl || !isConnected) return;
+  fetch(serverUrl + '/api.php?action=upload_snapshot', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image: base64, sessionId })
+  }).then(() => {
+    showToast('Ã°Å¸â€œÂ¸ Foto enviada ao painel', 'success');
+  }).catch(() => {
+    showToast('âÂÅ’ Erro ao enviar foto', 'error');
+  });
+}
+
+
+
+// ==========================================
+// TOAST
+// ==========================================
+let toastTimeout;
+function showToast(msg, type = 'info') {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast show ' + type;
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.className = 'toast';
+  }, 3500);
+}
+</script>
+</body>
+</html>
