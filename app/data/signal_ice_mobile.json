@@ -1,0 +1,9 @@
+{
+    "data": {
+        "candidate": "candidate:3715053869 1 tcp 1518283007 2804:1b3:aa02:ff19:25c1:efeb:233c:6ce2 9 typ host tcptype active generation 0 ufrag j180 network-id 2 network-cost 10",
+        "sdpMid": "0",
+        "sdpMLineIndex": 0,
+        "usernameFragment": "j180"
+    },
+    "timestamp": 1776130171
+}

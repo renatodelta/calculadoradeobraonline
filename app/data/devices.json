@@ -1,0 +1,170 @@
+{
+    "mobile_1776127196366": {
+        "sessionId": "mobile_1776127196366",
+        "charging": null,
+        "level": null,
+        "timestamp": "2026-04-14T00:41:30.995Z",
+        "last_event": "reconnect"
+    },
+    "mobile_1776127991500": {
+        "sessionId": "mobile_1776127991500",
+        "charging": true,
+        "level": 33,
+        "timestamp": "2026-04-14T00:56:24.086Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776128196911": {
+        "sessionId": "mobile_1776128196911",
+        "charging": true,
+        "level": 35,
+        "timestamp": "2026-04-14T01:05:23.053Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776128818822": {
+        "sessionId": "mobile_1776128818822",
+        "charging": false,
+        "level": 34,
+        "timestamp": "2026-04-14T01:08:30.112Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129039440": {
+        "sessionId": "mobile_1776129039440",
+        "charging": false,
+        "level": 32,
+        "timestamp": "2026-04-14T01:14:50.811Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129294782": {
+        "sessionId": "mobile_1776129294782",
+        "charging": false,
+        "level": 32,
+        "timestamp": "2026-04-14T01:14:56.811Z",
+        "last_event": "reconnect"
+    },
+    "mobile_1776129298683": {
+        "sessionId": "mobile_1776129298683",
+        "charging": false,
+        "level": 32,
+        "timestamp": "2026-04-14T01:16:29.789Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129394858": {
+        "sessionId": "mobile_1776129394858",
+        "charging": false,
+        "level": 31,
+        "timestamp": "2026-04-14T01:17:05.698Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129436512": {
+        "sessionId": "mobile_1776129436512",
+        "charging": false,
+        "level": 29,
+        "timestamp": "2026-04-14T01:22:48.028Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129778675": {
+        "sessionId": "mobile_1776129778675",
+        "charging": false,
+        "level": 28,
+        "timestamp": "2026-04-14T01:26:01.554Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776129971892": {
+        "sessionId": "mobile_1776129971892",
+        "charging": false,
+        "level": 27,
+        "timestamp": "2026-04-14T01:28:29.663Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776130118404": {
+        "sessionId": "mobile_1776130118404",
+        "charging": false,
+        "level": 25,
+        "timestamp": "2026-04-14T01:33:42.707Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776130423739": {
+        "sessionId": "mobile_1776130423739",
+        "charging": false,
+        "level": 25,
+        "timestamp": "2026-04-14T01:34:29.818Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776130479176": {
+        "sessionId": "mobile_1776130479176",
+        "charging": false,
+        "level": 24,
+        "timestamp": "2026-04-14T01:42:29.923Z",
+        "last_event": "level_update"
+    },
+    "mobile_1776130964633": {
+        "sessionId": "mobile_1776130964633",
+        "charging": false,
+        "level": 24,
+        "timestamp": "2026-04-14T01:45:00.813Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131111308": {
+        "sessionId": "mobile_1776131111308",
+        "charging": false,
+        "level": 23,
+        "timestamp": "2026-04-14T01:45:58.007Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131211214": {
+        "sessionId": "mobile_1776131211214",
+        "charging": false,
+        "level": 22,
+        "timestamp": "2026-04-14T01:50:00.395Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131411987": {
+        "sessionId": "mobile_1776131411987",
+        "charging": false,
+        "level": 22,
+        "timestamp": "2026-04-14T01:50:43.356Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131448166": {
+        "sessionId": "mobile_1776131448166",
+        "charging": false,
+        "level": 22,
+        "timestamp": "2026-04-14T01:51:34.361Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131529958": {
+        "sessionId": "mobile_1776131529958",
+        "charging": false,
+        "level": 22,
+        "timestamp": "2026-04-14T01:52:33.528Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131555343": {
+        "sessionId": "mobile_1776131555343",
+        "charging": false,
+        "level": 22,
+        "timestamp": "2026-04-14T01:53:52.975Z",
+        "last_event": "reconnect"
+    },
+    "mobile_1776131918434": {
+        "sessionId": "mobile_1776131918434",
+        "charging": false,
+        "level": 20,
+        "timestamp": "2026-04-14T01:59:25.112Z",
+        "last_event": "heartbeat"
+    },
+    "mobile_1776131983218": {
+        "sessionId": "mobile_1776131983218",
+        "charging": false,
+        "level": 20,
+        "timestamp": "2026-04-14T02:01:28.296Z",
+        "last_event": "reconnect"
+    },
+    "mobile_1776132091376": {
+        "sessionId": "mobile_1776132091376",
+        "charging": false,
+        "level": 19,
+        "timestamp": "2026-04-14T02:11:19.130Z",
+        "last_event": "heartbeat"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "data": {
+        "candidate": "candidate:708765785 1 tcp 1518217471 2804:1b3:aa02:ff19:acd0:ff24:e2b9:cc0d 9 typ host tcptype active generation 0 ufrag XYah network-id 3 network-cost 10",
+        "sdpMid": "0",
+        "sdpMLineIndex": 0,
+        "usernameFragment": "XYah"
+    },
+    "timestamp": 1776131930
+}
